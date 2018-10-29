@@ -1,0 +1,52 @@
+PODS:
+  - MaterialControls (1.2.2)
+  - NCMB (3.0.0)
+  - R.swift (4.0.0):
+    - R.swift.Library (~> 4.0.0)
+  - R.swift.Library (4.0.0)
+  - SlideMenuControllerSwift (4.0.0)
+  - SnapKit (4.0.1)
+  - SVProgressHUD (2.2.5)
+  - SwiftyUserDefaults (4.0.0-alpha.1)
+
+DEPENDENCIES:
+  - MaterialControls
+  - NCMB (from `https://github.com/NIFCloud-mbaas/ncmb_ios.git`)
+  - R.swift (~> 4.0.0)
+  - SlideMenuControllerSwift (~> 4.0.0)
+  - SnapKit (~> 4.0.1)
+  - SVProgressHUD (~> 2.2.5)
+  - SwiftyUserDefaults (= 4.0.0-alpha.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MaterialControls
+    - R.swift
+    - R.swift.Library
+    - SlideMenuControllerSwift
+    - SnapKit
+    - SVProgressHUD
+    - SwiftyUserDefaults
+
+EXTERNAL SOURCES:
+  NCMB:
+    :git: https://github.com/NIFCloud-mbaas/ncmb_ios.git
+
+CHECKOUT OPTIONS:
+  NCMB:
+    :commit: ce9d29969b01382943e4d8fd30f07d17dc52f3de
+    :git: https://github.com/NIFCloud-mbaas/ncmb_ios.git
+
+SPEC CHECKSUMS:
+  MaterialControls: 1c6b29e78d3a13d8dd6a67ed31b6d26eb5de8f72
+  NCMB: 53f7cd60388556330e18cc9196cbe4f897d5c091
+  R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
+  R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
+  SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
+
+PODFILE CHECKSUM: 9a11a7028cfd3ff77388364e3ca890e21b9c1b35
+
+COCOAPODS: 1.5.3
