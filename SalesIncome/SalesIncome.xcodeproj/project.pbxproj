@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		757C9F192188300E007A8E86 /* UIButtonEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757C9F182188300E007A8E86 /* UIButtonEx.swift */; };
 		75BF549921872F420002567A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF549821872F420002567A /* AppDelegate.swift */; };
 		75BF549B21872F420002567A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF549A21872F420002567A /* ViewController.swift */; };
 		75BF549E21872F420002567A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75BF549C21872F420002567A /* Main.storyboard */; };
@@ -24,13 +25,16 @@
 		75BF54C0218731640002567A /* ClassEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54B6218731640002567A /* ClassEx.swift */; };
 		75BF54C1218731640002567A /* UIBarButtonEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54B7218731640002567A /* UIBarButtonEx.swift */; };
 		75BF54C6218731C60002567A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54C5218731C60002567A /* HomeViewController.swift */; };
-		75BF54C8218731E30002567A /* SalesLogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54C7218731E30002567A /* SalesLogItem.swift */; };
+		75BF54C8218731E30002567A /* SalesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54C7218731E30002567A /* SalesItem.swift */; };
 		75BF54CB218739710002567A /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54CA218739710002567A /* R.generated.swift */; };
+		75BF54CE21873BD80002567A /* NCMBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54CD21873BD80002567A /* NCMBManager.swift */; };
+		75BF54D0218759DD0002567A /* SalesLogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54CF218759DD0002567A /* SalesLogItem.swift */; };
 		F004201213E2587372D1C9D0 /* Pods_SalesIncome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48380F713C600928F247C2AC /* Pods_SalesIncome.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		48380F713C600928F247C2AC /* Pods_SalesIncome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SalesIncome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		757C9F182188300E007A8E86 /* UIButtonEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonEx.swift; sourceTree = "<group>"; };
 		75BF549521872F420002567A /* SalesIncome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SalesIncome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75BF549821872F420002567A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75BF549A21872F420002567A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,8 +54,10 @@
 		75BF54B6218731640002567A /* ClassEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassEx.swift; sourceTree = "<group>"; };
 		75BF54B7218731640002567A /* UIBarButtonEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonEx.swift; sourceTree = "<group>"; };
 		75BF54C5218731C60002567A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		75BF54C7218731E30002567A /* SalesLogItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesLogItem.swift; sourceTree = "<group>"; };
+		75BF54C7218731E30002567A /* SalesItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesItem.swift; sourceTree = "<group>"; };
 		75BF54CA218739710002567A /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		75BF54CD21873BD80002567A /* NCMBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCMBManager.swift; sourceTree = "<group>"; };
+		75BF54CF218759DD0002567A /* SalesLogItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesLogItem.swift; sourceTree = "<group>"; };
 		9105B0F7D365D37ECDC46724 /* Pods-SalesIncome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesIncome.release.xcconfig"; path = "Pods/Target Support Files/Pods-SalesIncome/Pods-SalesIncome.release.xcconfig"; sourceTree = "<group>"; };
 		FB00713D422E9B2992D4CECE /* Pods-SalesIncome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesIncome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SalesIncome/Pods-SalesIncome.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +104,7 @@
 		75BF549721872F420002567A /* SalesIncome */ = {
 			isa = PBXGroup;
 			children = (
+				75BF54CC21873BC20002567A /* Utility */,
 				75BF54AA218730FC0002567A /* Constants */,
 				75BF54C4218731AE0002567A /* Model */,
 				75BF54C3218731A70002567A /* View */,
@@ -134,6 +141,7 @@
 				75BF54B5218731640002567A /* UICollectionViewEx.swift */,
 				75BF54B6218731640002567A /* ClassEx.swift */,
 				75BF54B7218731640002567A /* UIBarButtonEx.swift */,
+				757C9F182188300E007A8E86 /* UIButtonEx.swift */,
 			);
 			path = Extantion;
 			sourceTree = "<group>";
@@ -156,9 +164,18 @@
 		75BF54C4218731AE0002567A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				75BF54C7218731E30002567A /* SalesLogItem.swift */,
+				75BF54C7218731E30002567A /* SalesItem.swift */,
+				75BF54CF218759DD0002567A /* SalesLogItem.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		75BF54CC21873BC20002567A /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				75BF54CD21873BD80002567A /* NCMBManager.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		A19B777780EA0F25CF9AE4CA /* Pods */ = {
@@ -316,17 +333,20 @@
 				75BF54BB218731640002567A /* UIColorEx.swift in Sources */,
 				75BF549B21872F420002567A /* ViewController.swift in Sources */,
 				75BF54C1218731640002567A /* UIBarButtonEx.swift in Sources */,
+				75BF54D0218759DD0002567A /* SalesLogItem.swift in Sources */,
 				75BF54C0218731640002567A /* ClassEx.swift in Sources */,
+				757C9F192188300E007A8E86 /* UIButtonEx.swift in Sources */,
 				75BF54C6218731C60002567A /* HomeViewController.swift in Sources */,
 				75BF54BD218731640002567A /* UIViewControllerEx.swift in Sources */,
 				75BF549921872F420002567A /* AppDelegate.swift in Sources */,
 				75BF54AC218731110002567A /* Constants.swift in Sources */,
 				75BF54BF218731640002567A /* UICollectionViewEx.swift in Sources */,
 				75BF54B8218731640002567A /* UIApplicationEx.swift in Sources */,
+				75BF54CE21873BD80002567A /* NCMBManager.swift in Sources */,
 				75BF54CB218739710002567A /* R.generated.swift in Sources */,
 				75BF54BE218731640002567A /* UIFontEx.swift in Sources */,
 				75BF54B9218731640002567A /* ArrayEx.swift in Sources */,
-				75BF54C8218731E30002567A /* SalesLogItem.swift in Sources */,
+				75BF54C8218731E30002567A /* SalesItem.swift in Sources */,
 				75BF54BA218731640002567A /* UIViewEx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -477,6 +497,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z6ZF6BB944;
 				INFOPLIST_FILE = SalesIncome/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -484,7 +505,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ammYou.SalesIncome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -496,6 +517,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z6ZF6BB944;
 				INFOPLIST_FILE = SalesIncome/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -503,7 +525,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ammYou.SalesIncome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

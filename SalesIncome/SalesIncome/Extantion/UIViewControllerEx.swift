@@ -33,18 +33,18 @@ extension UIViewController {
 
     func setNavigationBarTitleString(title: String) {
         let titleLbl = UILabel()
-        titleLbl.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLbl.font = UIFont.boldSystemFont(ofSize: 22)
         titleLbl.text = title
         titleLbl.sizeToFit()
-        titleLbl.textColor = UIColor.gray
+        titleLbl.textColor = UIColor.white//Constants.Color.AppleGray
         titleLbl.textAlignment = .center
         titleLbl.contentMode = .scaleAspectFit
         self.navigationItem.titleView = titleLbl
     }
 
-    func setNavigationBarTitleLogo() {
-        let logoView = UIImageView(image: UIImage(named: "logo_pay_header"))
-        logoView.contentMode = .scaleAspectFit
-        self.navigationItem.titleView = logoView
-    }
+//    func setNavigationBarTitleLogo() {
+//        let logoView = UIImageView(image: UIImage(named: "logo_pay_header"))
+//        logoView.contentMode = .scaleAspectFit
+//        self.navigationItem.titleView = logoView
+//    }
 }

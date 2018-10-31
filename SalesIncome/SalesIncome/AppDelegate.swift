@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        ncmbInitializeSetting()
+        viewInitializeSetting()
         return true
     }
 
@@ -45,13 +47,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func viewInitializeSetting() {
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = HomeViewController()
+        self.window?.rootViewController = UINavigationController.init(rootViewController: HomeViewController())
         self.window?.makeKeyAndVisible()
     }
 
     private func ncmbInitializeSetting() {
         NCMB.setApplicationKey(Constants.Key.NCMB_APPLICATION_KEY, clientKey: Constants.Key.NCMB_CLIENT_KEY)
     }
+
+
 
 }
 
