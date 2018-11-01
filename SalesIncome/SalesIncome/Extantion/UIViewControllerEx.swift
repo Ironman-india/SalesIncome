@@ -15,12 +15,28 @@ extension UIViewController {
     /// Sets the navigation bar menu on the left bar button.
     /// Also add the left gesture.
     func setLeftBackBarButtonItem(action: Selector = #selector(tappedBackButton)) {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.createBarButton(image: R.image.back(), position: .left, target: self, action: action)
+        let barButtonItem = UIBarButtonItem()
+        let button = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: 24.0, height: 24.0))
+        button.setBackgroundImage(R.image.back(), for: .normal)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        barButtonItem.customView = button
+        barButtonItem.customView?.widthAnchor.constraint(equalToConstant: 24.0).isActive = true
+        barButtonItem.customView?.heightAnchor.constraint(equalToConstant: 24.0).isActive = true
+        barButtonItem.tintColor = UIColor.clear
+        self.navigationItem.leftBarButtonItem = barButtonItem
     }
     /// Sets the navigation bar menu on the left bar button.
     /// Also add the left gesture.
     func setRightCloseBarButtonItem(action: Selector = #selector(tappedCloseButton)) {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.createBarButton(image: R.image.close(), position: .right, target: self, action: action)
+        let barButtonItem = UIBarButtonItem()
+        let button = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: 24.0, height: 24.0))
+        button.setBackgroundImage(R.image.close(), for: .normal)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        barButtonItem.customView = button
+        barButtonItem.customView?.widthAnchor.constraint(equalToConstant: 24.0).isActive = true
+        barButtonItem.customView?.heightAnchor.constraint(equalToConstant: 24.0).isActive = true
+        barButtonItem.tintColor = UIColor.clear
+        self.navigationItem.rightBarButtonItem = barButtonItem
     }
 
     @objc private func tappedBackButton() {
@@ -40,6 +56,16 @@ extension UIViewController {
         titleLbl.textAlignment = .center
         titleLbl.contentMode = .scaleAspectFit
         self.navigationItem.titleView = titleLbl
+    }
+
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 
 //    func setNavigationBarTitleLogo() {

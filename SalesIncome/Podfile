@@ -12,12 +12,17 @@ def install_pods
     pod 'NCMB'                               , :git => 'https://github.com/NIFCloud-mbaas/ncmb_ios.git'
     pod 'SwiftyUserDefaults', '4.0.0-alpha.1'
     pod 'MaterialControls'
+    pod 'SkyFloatingLabelTextField', '~> 3.0'
     # Pods for FiMap
 end
 
 target 'SalesIncome' do
     install_pods
 end
+swift3_names = [
+'TLFloatLabelTextField'
+]
+
 
 swift4_names = [
 'R.swift',
@@ -30,7 +35,9 @@ post_install do |installer|
         target.build_configurations.each do |config|
             if swift4_names.include? target.name
                 config.build_settings['SWIFT_VERSION'] = "4.0"
-                else
+            elsif swift3_names.include? target.name
+                config.build_settings['SWIFT_VERSION'] = "3.0"
+            else
                 config.build_settings['SWIFT_VERSION'] = "4.2"
             end
         end

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		757C9F192188300E007A8E86 /* UIButtonEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757C9F182188300E007A8E86 /* UIButtonEx.swift */; };
+		757C9F1B21895C8E007A8E86 /* SellingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757C9F1A21895C8E007A8E86 /* SellingViewController.swift */; };
+		757C9F1F218A0F6A007A8E86 /* UITextFieldEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757C9F1E218A0F6A007A8E86 /* UITextFieldEx.swift */; };
+		757C9F23218A21D9007A8E86 /* SkyFloatingEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757C9F22218A21D9007A8E86 /* SkyFloatingEx.swift */; };
+		757C9F25218A27CC007A8E86 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757C9F24218A27CC007A8E86 /* PaymentViewController.swift */; };
 		75BF549921872F420002567A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF549821872F420002567A /* AppDelegate.swift */; };
 		75BF549B21872F420002567A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF549A21872F420002567A /* ViewController.swift */; };
 		75BF549E21872F420002567A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75BF549C21872F420002567A /* Main.storyboard */; };
@@ -35,6 +39,10 @@
 /* Begin PBXFileReference section */
 		48380F713C600928F247C2AC /* Pods_SalesIncome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SalesIncome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		757C9F182188300E007A8E86 /* UIButtonEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonEx.swift; sourceTree = "<group>"; };
+		757C9F1A21895C8E007A8E86 /* SellingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellingViewController.swift; sourceTree = "<group>"; };
+		757C9F1E218A0F6A007A8E86 /* UITextFieldEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldEx.swift; sourceTree = "<group>"; };
+		757C9F22218A21D9007A8E86 /* SkyFloatingEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyFloatingEx.swift; sourceTree = "<group>"; };
+		757C9F24218A27CC007A8E86 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		75BF549521872F420002567A /* SalesIncome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SalesIncome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75BF549821872F420002567A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75BF549A21872F420002567A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +150,8 @@
 				75BF54B6218731640002567A /* ClassEx.swift */,
 				75BF54B7218731640002567A /* UIBarButtonEx.swift */,
 				757C9F182188300E007A8E86 /* UIButtonEx.swift */,
+				757C9F1E218A0F6A007A8E86 /* UITextFieldEx.swift */,
+				757C9F22218A21D9007A8E86 /* SkyFloatingEx.swift */,
 			);
 			path = Extantion;
 			sourceTree = "<group>";
@@ -150,6 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				75BF54C5218731C60002567A /* HomeViewController.swift */,
+				757C9F1A21895C8E007A8E86 /* SellingViewController.swift */,
+				757C9F24218A27CC007A8E86 /* PaymentViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -268,6 +280,7 @@
 				"${BUILT_PRODUCTS_DIR}/NCMB/NCMB.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
@@ -278,6 +291,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NCMB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
@@ -310,11 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-			);
-			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
@@ -335,9 +345,11 @@
 				75BF54C1218731640002567A /* UIBarButtonEx.swift in Sources */,
 				75BF54D0218759DD0002567A /* SalesLogItem.swift in Sources */,
 				75BF54C0218731640002567A /* ClassEx.swift in Sources */,
+				757C9F23218A21D9007A8E86 /* SkyFloatingEx.swift in Sources */,
 				757C9F192188300E007A8E86 /* UIButtonEx.swift in Sources */,
 				75BF54C6218731C60002567A /* HomeViewController.swift in Sources */,
 				75BF54BD218731640002567A /* UIViewControllerEx.swift in Sources */,
+				757C9F1F218A0F6A007A8E86 /* UITextFieldEx.swift in Sources */,
 				75BF549921872F420002567A /* AppDelegate.swift in Sources */,
 				75BF54AC218731110002567A /* Constants.swift in Sources */,
 				75BF54BF218731640002567A /* UICollectionViewEx.swift in Sources */,
@@ -348,6 +360,8 @@
 				75BF54B9218731640002567A /* ArrayEx.swift in Sources */,
 				75BF54C8218731E30002567A /* SalesItem.swift in Sources */,
 				75BF54BA218731640002567A /* UIViewEx.swift in Sources */,
+				757C9F1B21895C8E007A8E86 /* SellingViewController.swift in Sources */,
+				757C9F25218A27CC007A8E86 /* PaymentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

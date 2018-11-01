@@ -22,6 +22,13 @@ class HomeViewController: UIViewController {
 
     override func loadView() {
         super.loadView()
+        self.view.addSubview(self.salesProceedsLabel)
+        self.view.addSubview(self.salesCount)
+        self.view.addSubview(self.sellButton)
+        self.view.addSubview(self.cancellButton)
+        self.view.addSubview(self.customButton)
+        self.view.addSubview(self.logTextView)
+
         allLayoutSetting()
     }
 
@@ -40,9 +47,9 @@ class HomeViewController: UIViewController {
         //let topColor = UIColor(red: 0.07, green: 0.13, blue: 0.26, alpha: 1)
         //グラデーションの開始色
         //let bottomColor = UIColor(red: 0.54, green: 0.74, blue: 0.74, alpha: 1)
-        let topColor = Constants.Color.AppleBlack
-        let middleColor = Constants.Color.AppleBlackShadow
-        let bottomColor = Constants.Color.AppleBlack
+        let topColor = Constants.Color.PureWhite
+        let middleColor = UIColor.white
+        let bottomColor = Constants.Color.PureWhite
         let gradientColors: [CGColor] = [topColor.cgColor, middleColor.cgColor, bottomColor.cgColor]
         let gradientLayer: CAGradientLayer = CAGradientLayer()
         gradientLayer.colors = gradientColors
@@ -56,37 +63,30 @@ class HomeViewController: UIViewController {
         barButtonItem.customView = button
         barButtonItem.customView?.widthAnchor.constraint(equalToConstant: 24.0).isActive = true
         barButtonItem.customView?.heightAnchor.constraint(equalToConstant: 24.0).isActive = true
-        barButtonItem.tintColor = UIColor.clear
-
+//        barButtonItem.tintColor = UIColor.clear
+        self.navigationItem.rightBarButtonItem = barButtonItem
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.barTintColor = Constants.Color.AppleBlack
-        self.navigationController?.navigationBar.tintColor = nil
+//        self.navigationController?.navigationBar.barTintColor = Constants.Color.AppleBlack
+//        self.navigationController?.navigationBar.tintColor = nil
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.barStyle = .blackOpaque
-        self.navigationItem.rightBarButtonItem = barButtonItem
+
         self.setNavigationBarTitleString(title: "売上計算")
 
-        self.view.addSubview(self.salesProceedsLabel)
-        self.view.addSubview(self.salesCount)
-        self.view.addSubview(self.sellButton)
-        self.view.addSubview(self.cancellButton)
-        self.view.addSubview(self.customButton)
-        self.view.addSubview(self.logTextView)
-
         self.salesProceedsLabel.text = "売り上げ: -円"
-        self.salesProceedsLabel.font = UIFont.systemFont(ofSize: 25)
-        self.salesProceedsLabel.textColor = Constants.Color.AppleGray
+        self.salesProceedsLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        self.salesProceedsLabel.textColor = Constants.Color.AppleBlack
 //        self.salesProceedsLabel.backgroundColor = Constants.Color.PureWhiteShadow
         self.salesProceedsLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(100)
+            make.top.equalTo(80)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalTo(50)
         }
 
         self.salesCount.text = "売り個数: -個"
-        self.salesCount.font = UIFont.systemFont(ofSize: 25)
-        self.salesCount.textColor = Constants.Color.AppleGray
+        self.salesCount.font = UIFont.boldSystemFont(ofSize: 25)
+        self.salesCount.textColor = Constants.Color.AppleBlack
 //        self.salesCount.backgroundColor = Constants.Color.PureWhiteShadow
         self.salesCount.snp.makeConstraints { (make) in
             make.top.equalTo(self.salesProceedsLabel.snp.bottom).offset(5)
@@ -96,8 +96,8 @@ class HomeViewController: UIViewController {
         }
 
         self.sellButton.mdButtonType = .raised
-        self.sellButton.rippleColor = Constants.Color.AppleSkyShadow
-        self.sellButton.backgroundColor = Constants.Color.AppleSky
+        self.sellButton.rippleColor = Constants.Color.AppleGray
+        self.sellButton.backgroundColor = Constants.Color.AppleBlack
         self.sellButton.layer.cornerRadius = 5
         self.sellButton.setTitle("販売", for: .normal)
         self.sellButton.setTitleColor(UIColor.white, for: .normal)
@@ -112,10 +112,10 @@ class HomeViewController: UIViewController {
         }
 
         self.cancellButton.mdButtonType = .raised
-        self.cancellButton.rippleColor = Constants.Color.AppleSkyShadow
-        self.cancellButton.backgroundColor = Constants.Color.AppleSky
+        self.cancellButton.rippleColor = Constants.Color.AppleGray
+        self.cancellButton.backgroundColor = Constants.Color.AppleBlack
         self.cancellButton.layer.cornerRadius = 5
-        self.cancellButton.setTitle("破棄", for: .normal)
+        self.cancellButton.setTitle("破棄(1回)", for: .normal)
         self.cancellButton.setTitleColor(UIColor.white, for: .normal)
         self.cancellButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         self.cancellButton.addTarget(self, action: #selector(tappedCancelButton), for: .touchUpInside)
@@ -128,8 +128,8 @@ class HomeViewController: UIViewController {
         }
 
         self.customButton.mdButtonType = .raised
-        self.customButton.rippleColor = Constants.Color.AppleSkyShadow
-        self.customButton.backgroundColor = Constants.Color.AppleSky
+        self.customButton.rippleColor = Constants.Color.AppleGray
+        self.customButton.backgroundColor = Constants.Color.AppleBlack
         self.customButton.layer.cornerRadius = 5
         self.customButton.setTitle("カスタム", for: .normal)
         self.customButton.setTitleColor(UIColor.white, for: .normal)
@@ -144,12 +144,14 @@ class HomeViewController: UIViewController {
         }
 
         self.logTextView.text = "売り, 金額: -円, 個数: -個, -円/個, 食券: -枚, ----/--/-- - --:--:--"
-        self.logTextView.textColor = Constants.Color.PureWhiteShadow
-        self.logTextView.backgroundColor = UIColor.black
-        self.logTextView.layer.cornerRadius = 5
+        self.logTextView.textColor = Constants.Color.PureWhite
+        self.logTextView.backgroundColor = Constants.Color.AppleBlack
+//        self.logTextView.layer.cornerRadius = 5
+        self.logTextView.alpha = 1.0
         self.logTextView.isSelectable = true
         self.logTextView.isScrollEnabled = true
         self.logTextView.isEditable = false
+        self.logTextView.addShadow(direction: .top)
         self.logTextView.snp.makeConstraints { (make) in
             make.top.equalTo(self.customButton.snp.bottom).offset(20)
             make.width.equalToSuperview()
@@ -164,6 +166,11 @@ class HomeViewController: UIViewController {
     }
 
     @objc private func tappedSellButton() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.present(UINavigationController(rootViewController: SellingViewController(price: 20)), animated: true, completion: nil)
+        }
+
+//        self.navigationController?.pushViewController(SellingViewController(), animated: true)
     }
 
     @objc private func tappedCancelButton() {
@@ -171,6 +178,9 @@ class HomeViewController: UIViewController {
 
     @objc private func tappedCustomButton() {
     }
+
+
+
     /*
     // MARK: - Navigation
 
