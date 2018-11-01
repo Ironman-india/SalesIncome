@@ -16,7 +16,7 @@ struct Constants {
     }
 
     struct NCMBClass {
-        static let NCMB_SALES = "sales"
+        static let NCMB_SALES_TOTAL = "salesTotal"
         static let NCMB_SALEA_LOG = "salesLog"
     }
 

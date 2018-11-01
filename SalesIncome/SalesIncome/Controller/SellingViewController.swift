@@ -11,6 +11,7 @@ import MaterialControls
 import SkyFloatingLabelTextField
 
 class SellingViewController: UIViewController {
+    private var item: SalesItem
     private var total: Int = 0 {
         didSet {
             print(total)
@@ -34,9 +35,10 @@ class SellingViewController: UIViewController {
     private let enterButton = MDButton()
 
 
-    init(price: Int) {
+    init(item: SalesItem) {
+        self.price = item.price
+        self.item = item
         super.init(nibName: nil, bundle: nil)
-        self.price = price
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -90,7 +92,7 @@ class SellingViewController: UIViewController {
         self.priceLabel.font = UIFont.boldSystemFont(ofSize: 20)
         self.priceLabel.textColor = Constants.Color.AppleBlack
         self.priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(80)
+            make.top.equalTo(90)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.7)
             make.height.equalTo(40)
@@ -161,8 +163,10 @@ class SellingViewController: UIViewController {
         if let text = self.countTxf.text {
             if text.count > 0 {
                 self.countTxf.errorMessage = ""
+                self.item.total = self.total
+                self.item.num = self.count
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.navigationController?.pushViewController(PaymentViewController(total: self.total), animated: true)
+                    self.navigationController?.pushViewController(PaymentViewController(item: self.item), animated: true)
                 }
             } else {
                 self.countTxf.errorMessage = "必須"

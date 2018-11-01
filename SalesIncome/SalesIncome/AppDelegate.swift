@@ -8,6 +8,7 @@
 
 import UIKit
 import NCMB
+import SwiftyUserDefaults
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

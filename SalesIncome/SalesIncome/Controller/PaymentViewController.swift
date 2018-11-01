@@ -11,6 +11,7 @@ import SkyFloatingLabelTextField
 import MaterialControls
 
 class PaymentViewController: UIViewController {
+    private var item: SalesItem
     private let ticketPrice = 100
 
     private var total: Int = 0 {
@@ -61,9 +62,10 @@ class PaymentViewController: UIViewController {
     private let ticketTxf = SkyFloatingLabelTextField()
     private let enterButton = MDButton()
 
-    init(total: Int) {
-        self.total = total
-        self.receipt = total
+    init(item: SalesItem) {
+        self.total = item.total
+        self.receipt = self.total
+        self.item = item
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -119,7 +121,7 @@ class PaymentViewController: UIViewController {
         self.totalLabel.font = UIFont.boldSystemFont(ofSize: 20)
         self.totalLabel.textColor = Constants.Color.AppleBlack
         self.totalLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(80)
+            make.top.equalTo(90)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.7)
             make.height.equalTo(40)
@@ -184,7 +186,7 @@ class PaymentViewController: UIViewController {
     @objc private func receiptDidChange(_ textField: UITextField) {
         if let text = textField.text {
             print(text)
-            if text.count <= 10 {
+            if text.count <= 5 {
                 self.receipt = Int(text) ?? 0
             }
             self.receiptTxf.errorMessage = ""
@@ -197,7 +199,7 @@ class PaymentViewController: UIViewController {
     @objc private func ticketDidChange(_ textField: UITextField) {
         if let text = textField.text {
             print(text)
-            if text.count <= 10 {
+            if text.count <= 5 {
                 self.ticket = Int(text) ?? 0
             }
             self.receiptTxf.errorMessage = ""
@@ -225,6 +227,14 @@ class PaymentViewController: UIViewController {
             self.receiptTxf.text = String(self.receipt)
             self.ticketTxf.text = String(self.ticket)
 
+            self.item.ticket = self.ticket
+            self.item.time = Date()
+            NCMBManager.saveSalesItem(item: self.item) { (code) in
+                print(code)
+            }
+            NCMBManager.saveSalesTotal(item: self.item) { (code) in
+                print(code)
+            }
         } else {
             self.receiptTxf.errorMessage = "不足"
         }

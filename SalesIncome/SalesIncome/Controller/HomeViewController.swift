@@ -78,7 +78,7 @@ class HomeViewController: UIViewController {
         self.salesProceedsLabel.textColor = Constants.Color.AppleBlack
 //        self.salesProceedsLabel.backgroundColor = Constants.Color.PureWhiteShadow
         self.salesProceedsLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(80)
+            make.top.equalTo(90)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalTo(50)
@@ -115,7 +115,7 @@ class HomeViewController: UIViewController {
         self.cancellButton.rippleColor = Constants.Color.AppleGray
         self.cancellButton.backgroundColor = Constants.Color.AppleBlack
         self.cancellButton.layer.cornerRadius = 5
-        self.cancellButton.setTitle("破棄(1回)", for: .normal)
+        self.cancellButton.setTitle("取り消し", for: .normal)
         self.cancellButton.setTitleColor(UIColor.white, for: .normal)
         self.cancellButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         self.cancellButton.addTarget(self, action: #selector(tappedCancelButton), for: .touchUpInside)
@@ -166,10 +166,10 @@ class HomeViewController: UIViewController {
     }
 
     @objc private func tappedSellButton() {
+        let item = SalesItem(transactionType: "売り", num: 0, price: 20, total: 0, ticket: 0, user: "")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.present(UINavigationController(rootViewController: SellingViewController(price: 20)), animated: true, completion: nil)
+            self.present(UINavigationController(rootViewController: SellingViewController(item: item)), animated: true, completion: nil)
         }
-
 //        self.navigationController?.pushViewController(SellingViewController(), animated: true)
     }
 
