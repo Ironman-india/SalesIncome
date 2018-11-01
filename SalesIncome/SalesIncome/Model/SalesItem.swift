@@ -9,6 +9,7 @@
 import Foundation
 import NCMB
 import SwiftyUserDefaults
+import SVProgressHUD
 
 class SalesItem: NSObject {
     public var objectId: String
@@ -38,11 +39,11 @@ class SalesItem: NSObject {
                 return formatter.string(from: self.time)
             }
         }
-
-        return "\(self.transactionType), 金額: \(self.total)円, 個数: \(self.count)個, \(self.price)円/個, 食券: \(self.ticket)毎, \(oTime)"
+        return "✅\(self.transactionType), 金額: \(self.total)円, 個数: \(self.count)個, \(self.price)円/個, 食券: \(self.ticket)毎, \(oTime)\n"
     }
 
     public func saveSalesItem(complete: @escaping (Int) -> Void) {
+        SVProgressHUD.show()
         let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALEA_LOG)
         object.setObject(self.transactionType, forKey: Constants.SalesItem.transactionType)
         object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesTotal.classes)
@@ -60,6 +61,7 @@ class SalesItem: NSObject {
             } else {
                 complete(0)
             }
+            SVProgressHUD.dismiss()
         }
     }
 }

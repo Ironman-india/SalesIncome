@@ -9,6 +9,7 @@
 import Foundation
 import NCMB
 import SwiftyUserDefaults
+import SVProgressHUD
 
 class SalesTotalItem: NSObject {
     public var objectId: String
@@ -22,10 +23,11 @@ class SalesTotalItem: NSObject {
     }
 
     public func updateSalesTotal(complete: @escaping (Int) -> Void) {
+        SVProgressHUD.show()
         getSalesTotal { (datas) in
-            print(datas)
             if datas.isEmpty {
                 self.saveSalesTotal(complete: { (code) in
+                    SVProgressHUD.dismiss()
                     complete(code)
                 })
             } else {
@@ -36,6 +38,7 @@ class SalesTotalItem: NSObject {
                     object.setObject(self.count + (data.object(forKey: Constants.SalesTotal.count) as? Int ?? 0), forKey: Constants.SalesTotal.count)
                     object.setObject(self.total + (data.object(forKey: Constants.SalesTotal.total) as? Int ?? 0), forKey: Constants.SalesTotal.total)
                     object.saveEventually { (error) in
+                        SVProgressHUD.dismiss()
                         if let errorString = error?.localizedDescription {
                             NSLog(errorString)
                             complete(1)
@@ -49,6 +52,7 @@ class SalesTotalItem: NSObject {
     }
 
     public func saveSalesTotal(complete: @escaping (Int) -> Void) {
+        SVProgressHUD.show()
         let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALES_TOTAL)
 
         object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesTotal.classes)
@@ -56,6 +60,7 @@ class SalesTotalItem: NSObject {
         object.setObject(self.total, forKey: Constants.SalesTotal.total)
 
         object.saveEventually { (error) in
+            SVProgressHUD.dismiss()
             if let errorString = error?.localizedDescription {
                 NSLog(errorString)
                 complete(1)
@@ -66,10 +71,12 @@ class SalesTotalItem: NSObject {
     }
 
     public func getSalesTotal(complete: @escaping ([NCMBObject]) -> Void) {
+        SVProgressHUD.show()
         let query: NCMBQuery = NCMBQuery(className: Constants.NCMBClass.NCMB_SALES_TOTAL)
         query.whereKey(Constants.SalesTotal.classes, equalTo: Defaults[.USER_CLASS])
 
         query.findObjectsInBackground { (datas, error) in
+            SVProgressHUD.dismiss()
             if let errorString = error?.localizedDescription {
                 NSLog(errorString)
                 complete(datas as? [NCMBObject] ?? [NCMBObject]())

@@ -11,6 +11,7 @@ import SkyFloatingLabelTextField
 import MaterialControls
 
 class PaymentViewController: UIViewController {
+    public var delegate: HomeViewControllerDelegate!
     private var item: SalesItem
     private let ticketPrice = 100
 
@@ -235,7 +236,7 @@ class PaymentViewController: UIViewController {
                     NSLog("Total保存%d", code)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         self.navigationController?.dismiss(animated: true, completion: nil)
-                        //
+                        self.delegate.outLogSales(logs: self.item.outputStringOneLine())
                     }
                 })
             }

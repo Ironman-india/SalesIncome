@@ -9,6 +9,7 @@
 import UIKit
 import NCMB
 import SwiftyUserDefaults
+import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -46,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func viewInitializeSetting() {
+        SVProgressHUD.
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = UINavigationController.init(rootViewController: HomeViewController())

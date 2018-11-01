@@ -11,6 +11,10 @@ import SnapKit
 import MaterialControls
 import NCMB
 
+protocol HomeViewControllerDelegate {
+    func outLogSales(logs: String)
+}
+
 class HomeViewController: UIViewController {
     private let salesProceedsLabel = UILabel()
     private let salesCount = UILabel()
@@ -121,7 +125,7 @@ class HomeViewController: UIViewController {
             make.height.equalTo(50)
         }
 
-        self.logTextView.text = "売り, 金額: -円, 個数: -個, -円/個, 食券: -枚, ----/--/-- - --:--:--"
+        self.logTextView.text = "売り, 金額: -円, 個数: -個, -円/個, 食券: -枚, ----/--/-- - --:--:--\n"
         self.logTextView.textColor = Constants.Color.PureWhite
         self.logTextView.backgroundColor = Constants.Color.AppleBlack
 //        self.logTextView.layer.cornerRadius = 5
@@ -146,7 +150,9 @@ class HomeViewController: UIViewController {
     @objc private func tappedSellButton() {
         let item = SalesItem(transactionType: "売り", count: 0, price: 20, total: 0, ticket: 0)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.present(UINavigationController(rootViewController: SellingViewController(item: item)), animated: true, completion: nil)
+            let vc = SellingViewController(item: item)
+            vc.delegate = self
+            self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
         }
     }
 
@@ -167,5 +173,12 @@ class HomeViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+}
+
+extension HomeViewController: HomeViewControllerDelegate {
+    func outLogSales(logs: String) {
+        self.logTextView.insertText(logs)
+    }
+
 
 }

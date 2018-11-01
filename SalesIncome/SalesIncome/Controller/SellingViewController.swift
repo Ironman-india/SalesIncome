@@ -11,7 +11,7 @@ import MaterialControls
 import SkyFloatingLabelTextField
 
 class SellingViewController: UIViewController {
-
+    public var delegate: HomeViewControllerDelegate!
     private var item: SalesItem
     private var total: Int = 0 {
         didSet {
@@ -164,7 +164,9 @@ class SellingViewController: UIViewController {
                 self.item.total = self.total
                 self.item.count = self.count
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.navigationController?.pushViewController(PaymentViewController(item: self.item), animated: true)
+                    let vc = PaymentViewController(item: self.item)
+                    vc.delegate = self.delegate
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             } else {
                 self.countTxf.errorMessage = "必須"
