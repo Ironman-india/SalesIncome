@@ -11,10 +11,10 @@ import MaterialControls
 import SkyFloatingLabelTextField
 
 class SellingViewController: UIViewController {
+
     private var item: SalesItem
     private var total: Int = 0 {
         didSet {
-            print(total)
             self.totalLabel.text = "合計: \(total)円"
         }
     }
@@ -25,7 +25,6 @@ class SellingViewController: UIViewController {
     }
     private var count: Int = 0 {
         didSet {
-            print(count)
             self.total = count * price
         }
     }
@@ -140,7 +139,6 @@ class SellingViewController: UIViewController {
 
     @objc private func countDidChange(_ textField: UITextField) {
         if let text = textField.text {
-            print(text)
             if text.count <= 5 {
                 self.count = Int(text) ?? 0
             }
@@ -164,7 +162,7 @@ class SellingViewController: UIViewController {
             if text.count > 0 {
                 self.countTxf.errorMessage = ""
                 self.item.total = self.total
-                self.item.num = self.count
+                self.item.count = self.count
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.navigationController?.pushViewController(PaymentViewController(item: self.item), animated: true)
                 }

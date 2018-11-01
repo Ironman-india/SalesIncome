@@ -20,10 +20,17 @@ struct Constants {
         static let NCMB_SALEA_LOG = "salesLog"
     }
 
+    struct SalesTotal {
+        static let objectId = "objectId"
+        static let classes = "class"
+        static let count = "count"
+        static let total = "total"
+    }
+
     struct SalesItem {
         static let objectId = "objectId"
         static let transactionType = "transactionType"
-        static let num = "num"
+        static let count = "count"
         static let price = "price"
         static let total = "total"
         static let ticket = "ticket"

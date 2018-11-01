@@ -185,7 +185,6 @@ class PaymentViewController: UIViewController {
     // MARK: - Action
     @objc private func receiptDidChange(_ textField: UITextField) {
         if let text = textField.text {
-            print(text)
             if text.count <= 5 {
                 self.receipt = Int(text) ?? 0
             }
@@ -198,7 +197,6 @@ class PaymentViewController: UIViewController {
 
     @objc private func ticketDidChange(_ textField: UITextField) {
         if let text = textField.text {
-            print(text)
             if text.count <= 5 {
                 self.ticket = Int(text) ?? 0
             }
@@ -229,11 +227,17 @@ class PaymentViewController: UIViewController {
 
             self.item.ticket = self.ticket
             self.item.time = Date()
-            NCMBManager.saveSalesItem(item: self.item) { (code) in
-                print(code)
-            }
-            NCMBManager.saveSalesTotal(item: self.item) { (code) in
-                print(code)
+
+            self.item.saveSalesItem { (code) in
+                NSLog("Log保存%d", code)
+                let total = SalesTotalItem(total: self.item.total, count: self.item.count)
+                total.updateSalesTotal(complete: { (code) in
+                    NSLog("Total保存%d", code)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        self.navigationController?.dismiss(animated: true, completion: nil)
+                        //
+                    }
+                })
             }
         } else {
             self.receiptTxf.errorMessage = "不足"

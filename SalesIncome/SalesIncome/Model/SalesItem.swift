@@ -8,26 +8,25 @@
 
 import Foundation
 import NCMB
+import SwiftyUserDefaults
 
 class SalesItem: NSObject {
     public var objectId: String
     public var transactionType: String
-    public var num: Int
+    public var count: Int
     public var price: Int
     public var total: Int
     public var ticket: Int
-    public var user: String
     public var time: Date
 
     init(objectId: String = "", transactionType: String,
-         num: Int, price: Int, total: Int, ticket: Int, user: String, time: Date = Date()) {
+         count: Int, price: Int, total: Int, ticket: Int, time: Date = Date()) {
         self.objectId = objectId
         self.transactionType = transactionType
-        self.num = num
+        self.count = count
         self.price = price
         self.total = total
         self.ticket = ticket
-        self.user = user
         self.time = time
     }
 
@@ -40,6 +39,27 @@ class SalesItem: NSObject {
             }
         }
 
-        return "\(self.transactionType), 金額: \(self.total)円, 個数: \(self.num)個, \(self.price)円/個, 食券: \(self.ticket)毎, \(oTime)"
+        return "\(self.transactionType), 金額: \(self.total)円, 個数: \(self.count)個, \(self.price)円/個, 食券: \(self.ticket)毎, \(oTime)"
+    }
+
+    public func saveSalesItem(complete: @escaping (Int) -> Void) {
+        let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALEA_LOG)
+        object.setObject(self.transactionType, forKey: Constants.SalesItem.transactionType)
+        object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesTotal.classes)
+        object.setObject(self.count, forKey: Constants.SalesItem.count)
+        object.setObject(self.price, forKey: Constants.SalesItem.price)
+        object.setObject(self.total, forKey: Constants.SalesItem.total)
+        object.setObject(self.ticket, forKey: Constants.SalesItem.ticket)
+        object.setObject(Defaults[.USER_NAME], forKey: Constants.SalesItem.user)
+        object.setObject(self.time, forKey: Constants.SalesItem.time)
+
+        object.saveEventually { (error) in
+            if let errorString = error?.localizedDescription {
+                NSLog(errorString)
+                complete(1)
+            } else {
+                complete(0)
+            }
+        }
     }
 }

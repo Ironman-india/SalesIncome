@@ -19,14 +19,13 @@ class HomeViewController: UIViewController {
     private let customButton = MDButton()
     private let logTextView = UITextView()
 
-
     override func loadView() {
         super.loadView()
         self.view.addSubview(self.salesProceedsLabel)
         self.view.addSubview(self.salesCount)
         self.view.addSubview(self.sellButton)
         self.view.addSubview(self.cancellButton)
-        self.view.addSubview(self.customButton)
+//        self.view.addSubview(self.customButton)
         self.view.addSubview(self.logTextView)
 
         allLayoutSetting()
@@ -63,11 +62,8 @@ class HomeViewController: UIViewController {
         barButtonItem.customView = button
         barButtonItem.customView?.widthAnchor.constraint(equalToConstant: 24.0).isActive = true
         barButtonItem.customView?.heightAnchor.constraint(equalToConstant: 24.0).isActive = true
-//        barButtonItem.tintColor = UIColor.clear
         self.navigationItem.rightBarButtonItem = barButtonItem
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        self.navigationController?.navigationBar.barTintColor = Constants.Color.AppleBlack
-//        self.navigationController?.navigationBar.tintColor = nil
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.barStyle = .blackOpaque
 
@@ -76,7 +72,6 @@ class HomeViewController: UIViewController {
         self.salesProceedsLabel.text = "売り上げ: -円"
         self.salesProceedsLabel.font = UIFont.boldSystemFont(ofSize: 25)
         self.salesProceedsLabel.textColor = Constants.Color.AppleBlack
-//        self.salesProceedsLabel.backgroundColor = Constants.Color.PureWhiteShadow
         self.salesProceedsLabel.snp.makeConstraints { (make) in
             make.top.equalTo(90)
             make.centerX.equalToSuperview()
@@ -87,7 +82,6 @@ class HomeViewController: UIViewController {
         self.salesCount.text = "売り個数: -個"
         self.salesCount.font = UIFont.boldSystemFont(ofSize: 25)
         self.salesCount.textColor = Constants.Color.AppleBlack
-//        self.salesCount.backgroundColor = Constants.Color.PureWhiteShadow
         self.salesCount.snp.makeConstraints { (make) in
             make.top.equalTo(self.salesProceedsLabel.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
@@ -122,24 +116,8 @@ class HomeViewController: UIViewController {
         self.cancellButton.addShadow(direction: .bottom)
         self.cancellButton.snp.makeConstraints { (make) in
             make.top.equalTo(self.sellButton.snp.bottom).offset(10)
-            make.left.equalTo(self.sellButton)
-            make.width.equalTo(self.sellButton).multipliedBy(0.5).offset(-5)
-            make.height.equalTo(50)
-        }
-
-        self.customButton.mdButtonType = .raised
-        self.customButton.rippleColor = Constants.Color.AppleGray
-        self.customButton.backgroundColor = Constants.Color.AppleBlack
-        self.customButton.layer.cornerRadius = 5
-        self.customButton.setTitle("カスタム", for: .normal)
-        self.customButton.setTitleColor(UIColor.white, for: .normal)
-        self.customButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        self.customButton.addTarget(self, action: #selector(tappedCustomButton), for: .touchUpInside)
-        self.customButton.addShadow(direction: .bottom)
-        self.customButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.sellButton.snp.bottom).offset(10)
-            make.right.equalTo(self.sellButton)
-            make.width.equalTo(self.sellButton).multipliedBy(0.5).offset(-5)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.85)
             make.height.equalTo(50)
         }
 
@@ -153,7 +131,7 @@ class HomeViewController: UIViewController {
         self.logTextView.isEditable = false
         self.logTextView.addShadow(direction: .top)
         self.logTextView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.customButton.snp.bottom).offset(20)
+            make.top.equalTo(self.cancellButton.snp.bottom).offset(20)
             make.width.equalToSuperview()
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -166,11 +144,10 @@ class HomeViewController: UIViewController {
     }
 
     @objc private func tappedSellButton() {
-        let item = SalesItem(transactionType: "売り", num: 0, price: 20, total: 0, ticket: 0, user: "")
+        let item = SalesItem(transactionType: "売り", count: 0, price: 20, total: 0, ticket: 0)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.present(UINavigationController(rootViewController: SellingViewController(item: item)), animated: true, completion: nil)
         }
-//        self.navigationController?.pushViewController(SellingViewController(), animated: true)
     }
 
     @objc private func tappedCancelButton() {

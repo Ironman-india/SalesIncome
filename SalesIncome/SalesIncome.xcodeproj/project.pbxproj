@@ -32,7 +32,7 @@
 		75BF54C8218731E30002567A /* SalesItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54C7218731E30002567A /* SalesItem.swift */; };
 		75BF54CB218739710002567A /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54CA218739710002567A /* R.generated.swift */; };
 		75BF54CE21873BD80002567A /* NCMBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54CD21873BD80002567A /* NCMBManager.swift */; };
-		75BF54D0218759DD0002567A /* SalesLogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54CF218759DD0002567A /* SalesLogItem.swift */; };
+		75BF54D0218759DD0002567A /* SalesTotalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54CF218759DD0002567A /* SalesTotalItem.swift */; };
 		75CE77D9218AABA2007CEA54 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CE77D8218AABA2007CEA54 /* UserDefaultsKey.swift */; };
 		F004201213E2587372D1C9D0 /* Pods_SalesIncome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48380F713C600928F247C2AC /* Pods_SalesIncome.framework */; };
 /* End PBXBuildFile section */
@@ -66,7 +66,7 @@
 		75BF54C7218731E30002567A /* SalesItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesItem.swift; sourceTree = "<group>"; };
 		75BF54CA218739710002567A /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		75BF54CD21873BD80002567A /* NCMBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCMBManager.swift; sourceTree = "<group>"; };
-		75BF54CF218759DD0002567A /* SalesLogItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesLogItem.swift; sourceTree = "<group>"; };
+		75BF54CF218759DD0002567A /* SalesTotalItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesTotalItem.swift; sourceTree = "<group>"; };
 		75CE77D8218AABA2007CEA54 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		9105B0F7D365D37ECDC46724 /* Pods-SalesIncome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesIncome.release.xcconfig"; path = "Pods/Target Support Files/Pods-SalesIncome/Pods-SalesIncome.release.xcconfig"; sourceTree = "<group>"; };
 		FB00713D422E9B2992D4CECE /* Pods-SalesIncome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesIncome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SalesIncome/Pods-SalesIncome.debug.xcconfig"; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				75BF54C7218731E30002567A /* SalesItem.swift */,
-				75BF54CF218759DD0002567A /* SalesLogItem.swift */,
+				75BF54CF218759DD0002567A /* SalesTotalItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -347,7 +347,7 @@
 				75BF54BB218731640002567A /* UIColorEx.swift in Sources */,
 				75BF549B21872F420002567A /* ViewController.swift in Sources */,
 				75BF54C1218731640002567A /* UIBarButtonEx.swift in Sources */,
-				75BF54D0218759DD0002567A /* SalesLogItem.swift in Sources */,
+				75BF54D0218759DD0002567A /* SalesTotalItem.swift in Sources */,
 				75BF54C0218731640002567A /* ClassEx.swift in Sources */,
 				757C9F23218A21D9007A8E86 /* SkyFloatingEx.swift in Sources */,
 				757C9F192188300E007A8E86 /* UIButtonEx.swift in Sources */,
