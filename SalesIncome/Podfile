@@ -23,7 +23,6 @@ swift3_names = [
 'TLFloatLabelTextField'
 ]
 
-
 swift4_names = [
 'R.swift',
 'SlideMenuControllerSwift',

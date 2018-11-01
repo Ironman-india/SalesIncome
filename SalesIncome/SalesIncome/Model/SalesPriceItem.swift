@@ -1,8 +1,8 @@
 //
-//  SalesTotalItem.swift
+//  SalesPriceItem.swift
 //  SalesIncome
 //
-//  Created by AmamiYou on 2018/10/30.
+//  Created by AmamiYou on 2018/11/01.
 //  Copyright © 2018 ammYou. All rights reserved.
 //
 
@@ -11,32 +11,29 @@ import NCMB
 import SwiftyUserDefaults
 import SVProgressHUD
 
-class SalesTotalItem: NSObject {
+class SalesPriceItem: NSObject {
     public var objectId: String
-    public var total: Int
-    public var count: Int
+    public var prices: [Int]
 
-    init(objectId: String = "", total: Int = 0, count: Int = 0) {
+    init(objectId: String = "", prices: [Int] = [Int]()) {
         self.objectId = objectId
-        self.total = total
-        self.count = count
+        self.prices = prices
     }
 
-    public func updateSalesTotal(complete: @escaping (Int) -> Void) {
+    public func updateSalesPrice(complete: @escaping (Int) -> Void) {
         SVProgressHUD.show()
-        getSalesTotal { (datas) in
+        getSalesPrice { (datas) in
             if datas.isEmpty {
-                self.saveSalesTotal(complete: { (code) in
+                self.saveSalesPrice(complete: { (code) in
                     SVProgressHUD.dismiss()
                     complete(code)
                 })
             } else {
                 for data in datas {
-                    let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALES_TOTAL)
+                    let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALES_PRICE)
                     object.objectId = data.objectId
-                    object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesTotal.classes)
-                    object.setObject(self.count + (data.object(forKey: Constants.SalesTotal.count) as? Int ?? 0), forKey: Constants.SalesTotal.count)
-                    object.setObject(self.total + (data.object(forKey: Constants.SalesTotal.total) as? Int ?? 0), forKey: Constants.SalesTotal.total)
+                    object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesPrices.classes)
+                    object.setObject(self.prices, forKey: Constants.SalesPrices.prices)
                     object.saveEventually { (error) in
                         SVProgressHUD.dismiss()
                         if let errorString = error?.localizedDescription {
@@ -51,13 +48,13 @@ class SalesTotalItem: NSObject {
         }
     }
 
-    public func saveSalesTotal(complete: @escaping (Int) -> Void) {
+    public func saveSalesPrice(complete: @escaping (Int) -> Void) {
         SVProgressHUD.show()
-        let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALES_TOTAL)
+        let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALES_PRICE)
 
-        object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesTotal.classes)
-        object.setObject(self.count, forKey: Constants.SalesTotal.count)
-        object.setObject(self.total, forKey: Constants.SalesTotal.total)
+        object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesPrices.classes)
+        object.setObject(self.prices, forKey: Constants.SalesPrices.prices)
+
 
         object.saveEventually { (error) in
             SVProgressHUD.dismiss()
@@ -70,10 +67,10 @@ class SalesTotalItem: NSObject {
         }
     }
 
-    public func getSalesTotal(complete: @escaping ([NCMBObject]) -> Void) {
+    public func getSalesPrice(complete: @escaping ([NCMBObject]) -> Void) {
         SVProgressHUD.show()
-        let query: NCMBQuery = NCMBQuery(className: Constants.NCMBClass.NCMB_SALES_TOTAL)
-        query.whereKey(Constants.SalesTotal.classes, equalTo: Defaults[.USER_CLASS])
+        let query: NCMBQuery = NCMBQuery(className: Constants.NCMBClass.NCMB_SALES_PRICE)
+        query.whereKey(Constants.SalesPrices.classes, equalTo: Defaults[.USER_CLASS])
 
         query.findObjectsInBackground { (datas, error) in
             SVProgressHUD.dismiss()

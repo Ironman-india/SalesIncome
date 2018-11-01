@@ -20,8 +20,8 @@ class SalesItem: NSObject {
     public var ticket: Int
     public var time: Date
 
-    init(objectId: String = "", transactionType: String,
-         count: Int, price: Int, total: Int, ticket: Int, time: Date = Date()) {
+    init(objectId: String = "", transactionType: String = "",
+         count: Int = 0, price: Int = 0, total: Int = 0, ticket: Int = 0, time: Date = Date()) {
         self.objectId = objectId
         self.transactionType = transactionType
         self.count = count
@@ -39,7 +39,11 @@ class SalesItem: NSObject {
                 return formatter.string(from: self.time)
             }
         }
-        return "✅\(self.transactionType), 金額: \(self.total)円, 個数: \(self.count)個, \(self.price)円/個, 食券: \(self.ticket)毎, \(oTime)\n"
+        if self.transactionType == "売り" {
+            return "✅\(self.transactionType), 金額: \(self.total)円, 個数: \(self.count)個, \(self.price)円/個, 食券: \(self.ticket)枚, \(oTime)\n"
+        } else {
+            return "❌\(self.transactionType), 金額: \(self.total)円, 個数: \(self.count)個, \(self.price)円/個, 食券: \(self.ticket)枚, \(oTime)\n"
+        }
     }
 
     public func saveSalesItem(complete: @escaping (Int) -> Void) {
@@ -57,8 +61,11 @@ class SalesItem: NSObject {
         object.saveEventually { (error) in
             if let errorString = error?.localizedDescription {
                 NSLog(errorString)
+                self.objectId = object.objectId
                 complete(1)
             } else {
+                self.objectId = object.objectId
+
                 complete(0)
             }
             SVProgressHUD.dismiss()

@@ -12,7 +12,7 @@ import MaterialControls
 import NCMB
 
 protocol HomeViewControllerDelegate {
-    func outLogSales(logs: String)
+    func successPayment(item: SalesItem)
 }
 
 class HomeViewController: UIViewController {
@@ -43,6 +43,16 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        SalesTotalItem().getSalesTotal { (datas) in
+            for data in datas {
+                self.salesProceedsLabel.text = "売り上げ: \(data.object(forKey: Constants.SalesTotal.total) ?? 0)円"
+                self.salesCount.text = "売り個数: \(data.object(forKey: Constants.SalesTotal.count) ?? 0)個"
+            }
+        }
+    }
+
 
     // MARK: - LayoutSetting
     private func allLayoutSetting() {
@@ -59,25 +69,19 @@ class HomeViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(gradientLayer, at: 0)
 
-        let barButtonItem = UIBarButtonItem()
-        let button = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: 24.0, height: 24.0))
-        button.setBackgroundImage(R.image.settingMix(), for: .normal)
-        button.addTarget(self, action: #selector(tappedSettingButton), for: .touchUpInside)
-        barButtonItem.customView = button
-        barButtonItem.customView?.widthAnchor.constraint(equalToConstant: 24.0).isActive = true
-        barButtonItem.customView?.heightAnchor.constraint(equalToConstant: 24.0).isActive = true
-        self.navigationItem.rightBarButtonItem = barButtonItem
+        self.setLeftBackBarButtonItem(action: #selector(tappedReloadButton), image: R.image.reload())
+        self.setRightCloseBarButtonItem(action: #selector(tappedSettingButton), image: R.image.setting())
+        self.navigationController?.navigationBar.barTintColor = Constants.Color.AppleBlack
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.barStyle = .blackOpaque
-
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barStyle = .black
         self.setNavigationBarTitleString(title: "売上計算")
 
         self.salesProceedsLabel.text = "売り上げ: -円"
         self.salesProceedsLabel.font = UIFont.boldSystemFont(ofSize: 25)
         self.salesProceedsLabel.textColor = Constants.Color.AppleBlack
         self.salesProceedsLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(90)
+            make.top.equalTo(20)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalTo(50)
@@ -144,13 +148,26 @@ class HomeViewController: UIViewController {
 
 // MARK: - Action
 
+    @objc private func tappedReloadButton() {
+        SalesTotalItem().getSalesTotal { (datas) in
+            for data in datas {
+                self.salesProceedsLabel.text = "売り上げ: \(data.object(forKey: Constants.SalesTotal.total) ?? 0)円"
+                self.salesCount.text = "売り個数: \(data.object(forKey: Constants.SalesTotal.count) ?? 0)個"
+            }
+        }
+    }
+
     @objc private func tappedSettingButton() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            let vc = SettingViewController()
+            self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        }
     }
 
     @objc private func tappedSellButton() {
         let item = SalesItem(transactionType: "売り", count: 0, price: 20, total: 0, ticket: 0)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            let vc = SellingViewController(item: item)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            let vc = SelectingViewController(item: item)
             vc.delegate = self
             self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
         }
@@ -158,10 +175,6 @@ class HomeViewController: UIViewController {
 
     @objc private func tappedCancelButton() {
     }
-
-    @objc private func tappedCustomButton() {
-    }
-
 
 
     /*
@@ -176,9 +189,7 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: HomeViewControllerDelegate {
-    func outLogSales(logs: String) {
-        self.logTextView.insertText(logs)
+    func successPayment(item: SalesItem) {
+        self.logTextView.insertText(item.outputStringOneLine())
     }
-
-
 }

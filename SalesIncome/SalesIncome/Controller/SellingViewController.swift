@@ -77,13 +77,12 @@ class SellingViewController: UIViewController {
         gradientLayer.colors = gradientColors
         gradientLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(gradientLayer, at: 0)
-
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        self.navigationController?.navigationBar.barTintColor = Constants.Color.AppleBlack
-//        self.navigationController?.navigationBar.tintColor = nil
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.barStyle = .blackOpaque
-        self.setLeftBackBarButtonItem(action: #selector(tappedNaviBackButton))
+        self.navigationController?.navigationBar.barTintColor = Constants.Color.AppleBlack
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barStyle = .black
+        self.setLeftBackBarButtonItem()
+        self.setRightCloseBarButtonItem(action: #selector(tappedNaviCloseButton))
         self.setNavigationBarTitleString(title: "品数入力")
 
         // Input count
@@ -91,7 +90,7 @@ class SellingViewController: UIViewController {
         self.priceLabel.font = UIFont.boldSystemFont(ofSize: 20)
         self.priceLabel.textColor = Constants.Color.AppleBlack
         self.priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(90)
+            make.top.equalTo(20)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.7)
             make.height.equalTo(40)
@@ -137,6 +136,10 @@ class SellingViewController: UIViewController {
         }
     }
 
+    @objc private func tappedNaviCloseButton() {
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
+
     @objc private func countDidChange(_ textField: UITextField) {
         if let text = textField.text {
             if text.count <= 5 {
@@ -153,17 +156,13 @@ class SellingViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-    @objc private func tappedNaviBackButton() {
-        self.dismiss(animated: true, completion: nil)
-    }
-
     @objc private func tappedEnterButton() {
         if let text = self.countTxf.text {
             if text.count > 0 {
                 self.countTxf.errorMessage = ""
                 self.item.total = self.total
                 self.item.count = self.count
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     let vc = PaymentViewController(item: self.item)
                     vc.delegate = self.delegate
                     self.navigationController?.pushViewController(vc, animated: true)

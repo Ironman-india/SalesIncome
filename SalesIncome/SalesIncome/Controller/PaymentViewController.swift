@@ -109,11 +109,10 @@ class PaymentViewController: UIViewController {
         self.view.layer.insertSublayer(gradientLayer, at: 0)
 
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        //        self.navigationController?.navigationBar.barTintColor = Constants.Color.AppleBlack
-        //        self.navigationController?.navigationBar.tintColor = nil
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.barStyle = .blackOpaque
-        self.setLeftBackBarButtonItem(action: #selector(tappedNaviBackButton))
+        self.navigationController?.navigationBar.barTintColor = Constants.Color.AppleBlack
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barStyle = .black
+        self.setLeftBackBarButtonItem()
         self.setRightCloseBarButtonItem(action: #selector(tappedNaviCloseButton))
         self.setNavigationBarTitleString(title: "支払い")
 
@@ -122,7 +121,7 @@ class PaymentViewController: UIViewController {
         self.totalLabel.font = UIFont.boldSystemFont(ofSize: 20)
         self.totalLabel.textColor = Constants.Color.AppleBlack
         self.totalLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(90)
+            make.top.equalTo(20)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.7)
             make.height.equalTo(40)
@@ -179,11 +178,11 @@ class PaymentViewController: UIViewController {
     }
 
 
-    //MARK:- Function
+//MARK:- Function
     private func canPay() {
     }
 
-    // MARK: - Action
+// MARK: - Action
     @objc private func receiptDidChange(_ textField: UITextField) {
         if let text = textField.text {
             if text.count <= 5 {
@@ -212,10 +211,6 @@ class PaymentViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-    @objc private func tappedNaviBackButton() {
-        self.navigationController?.popViewController(animated: true)
-    }
-
     @objc private func tappedNaviCloseButton() {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
@@ -234,9 +229,9 @@ class PaymentViewController: UIViewController {
                 let total = SalesTotalItem(total: self.item.total, count: self.item.count)
                 total.updateSalesTotal(complete: { (code) in
                     NSLog("Total保存%d", code)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                         self.navigationController?.dismiss(animated: true, completion: nil)
-                        self.delegate.outLogSales(logs: self.item.outputStringOneLine())
+                        self.delegate.successPayment(item: self.item)
                     }
                 })
             }

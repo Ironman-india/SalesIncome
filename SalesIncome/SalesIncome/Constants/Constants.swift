@@ -16,8 +16,14 @@ struct Constants {
     }
 
     struct NCMBClass {
+        static let NCMB_SALES_PRICE = "salesPrice"
         static let NCMB_SALES_TOTAL = "salesTotal"
         static let NCMB_SALEA_LOG = "salesLog"
+    }
+    struct SalesPrices {
+        static let objectId = "objectId"
+        static let classes = "class"
+        static let prices = "prices"
     }
 
     struct SalesTotal {

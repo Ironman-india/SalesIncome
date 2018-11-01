@@ -34,6 +34,12 @@
 		75BF54CE21873BD80002567A /* NCMBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54CD21873BD80002567A /* NCMBManager.swift */; };
 		75BF54D0218759DD0002567A /* SalesTotalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF54CF218759DD0002567A /* SalesTotalItem.swift */; };
 		75CE77D9218AABA2007CEA54 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CE77D8218AABA2007CEA54 /* UserDefaultsKey.swift */; };
+		75CE77DB218AE161007CEA54 /* SelectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CE77DA218AE161007CEA54 /* SelectingViewController.swift */; };
+		75CE77DD218AED02007CEA54 /* SalesPriceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CE77DC218AED02007CEA54 /* SalesPriceItem.swift */; };
+		75CE77DF218AF4B6007CEA54 /* PriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CE77DE218AF4B6007CEA54 /* PriceTableViewCell.swift */; };
+		75CE77E1218B0D64007CEA54 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CE77E0218B0D64007CEA54 /* SettingViewController.swift */; };
+		75CE77E3218B1162007CEA54 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CE77E2218B1162007CEA54 /* SettingTableViewCell.swift */; };
+		75CE77E5218B16A0007CEA54 /* SettingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CE77E4218B16A0007CEA54 /* SettingItem.swift */; };
 		F004201213E2587372D1C9D0 /* Pods_SalesIncome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48380F713C600928F247C2AC /* Pods_SalesIncome.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +74,12 @@
 		75BF54CD21873BD80002567A /* NCMBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCMBManager.swift; sourceTree = "<group>"; };
 		75BF54CF218759DD0002567A /* SalesTotalItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesTotalItem.swift; sourceTree = "<group>"; };
 		75CE77D8218AABA2007CEA54 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
+		75CE77DA218AE161007CEA54 /* SelectingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectingViewController.swift; sourceTree = "<group>"; };
+		75CE77DC218AED02007CEA54 /* SalesPriceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesPriceItem.swift; sourceTree = "<group>"; };
+		75CE77DE218AF4B6007CEA54 /* PriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceTableViewCell.swift; sourceTree = "<group>"; };
+		75CE77E0218B0D64007CEA54 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		75CE77E2218B1162007CEA54 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		75CE77E4218B16A0007CEA54 /* SettingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItem.swift; sourceTree = "<group>"; };
 		9105B0F7D365D37ECDC46724 /* Pods-SalesIncome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesIncome.release.xcconfig"; path = "Pods/Target Support Files/Pods-SalesIncome/Pods-SalesIncome.release.xcconfig"; sourceTree = "<group>"; };
 		FB00713D422E9B2992D4CECE /* Pods-SalesIncome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesIncome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SalesIncome/Pods-SalesIncome.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -162,8 +174,10 @@
 			isa = PBXGroup;
 			children = (
 				75BF54C5218731C60002567A /* HomeViewController.swift */,
+				75CE77DA218AE161007CEA54 /* SelectingViewController.swift */,
 				757C9F1A21895C8E007A8E86 /* SellingViewController.swift */,
 				757C9F24218A27CC007A8E86 /* PaymentViewController.swift */,
+				75CE77E0218B0D64007CEA54 /* SettingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -171,6 +185,8 @@
 		75BF54C3218731A70002567A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				75CE77DE218AF4B6007CEA54 /* PriceTableViewCell.swift */,
+				75CE77E2218B1162007CEA54 /* SettingTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,6 +196,8 @@
 			children = (
 				75BF54C7218731E30002567A /* SalesItem.swift */,
 				75BF54CF218759DD0002567A /* SalesTotalItem.swift */,
+				75CE77DC218AED02007CEA54 /* SalesPriceItem.swift */,
+				75CE77E4218B16A0007CEA54 /* SettingItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -346,9 +364,11 @@
 				75BF54BC218731640002567A /* CALayerEx.swift in Sources */,
 				75BF54BB218731640002567A /* UIColorEx.swift in Sources */,
 				75BF549B21872F420002567A /* ViewController.swift in Sources */,
+				75CE77E3218B1162007CEA54 /* SettingTableViewCell.swift in Sources */,
 				75BF54C1218731640002567A /* UIBarButtonEx.swift in Sources */,
 				75BF54D0218759DD0002567A /* SalesTotalItem.swift in Sources */,
 				75BF54C0218731640002567A /* ClassEx.swift in Sources */,
+				75CE77DB218AE161007CEA54 /* SelectingViewController.swift in Sources */,
 				757C9F23218A21D9007A8E86 /* SkyFloatingEx.swift in Sources */,
 				757C9F192188300E007A8E86 /* UIButtonEx.swift in Sources */,
 				75BF54C6218731C60002567A /* HomeViewController.swift in Sources */,
@@ -358,8 +378,12 @@
 				75BF54AC218731110002567A /* Constants.swift in Sources */,
 				75BF54BF218731640002567A /* UICollectionViewEx.swift in Sources */,
 				75BF54B8218731640002567A /* UIApplicationEx.swift in Sources */,
+				75CE77DD218AED02007CEA54 /* SalesPriceItem.swift in Sources */,
 				75BF54CE21873BD80002567A /* NCMBManager.swift in Sources */,
+				75CE77E1218B0D64007CEA54 /* SettingViewController.swift in Sources */,
 				75BF54CB218739710002567A /* R.generated.swift in Sources */,
+				75CE77DF218AF4B6007CEA54 /* PriceTableViewCell.swift in Sources */,
+				75CE77E5218B16A0007CEA54 /* SettingItem.swift in Sources */,
 				75BF54BE218731640002567A /* UIFontEx.swift in Sources */,
 				75BF54B9218731640002567A /* ArrayEx.swift in Sources */,
 				75BF54C8218731E30002567A /* SalesItem.swift in Sources */,
