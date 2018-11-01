@@ -47,8 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func viewInitializeSetting() {
-        SVProgressHUD.
-
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = UINavigationController.init(rootViewController: HomeViewController())
         self.window?.makeKeyAndVisible()
