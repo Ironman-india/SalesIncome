@@ -14,7 +14,7 @@ import SkyFloatingLabelTextField
 class SelectingViewController: UIViewController {
     public var delegate: HomeViewControllerDelegate!
     private var item: SalesItem
-    private var dataSource = SalesPriceItem(objectId: "", prices: [100, 200])
+    private var dataSource = SalesPriceItem()
     private let tableView = UITableView()
 
     init(item: SalesItem) {
@@ -61,6 +61,16 @@ class SelectingViewController: UIViewController {
         self.setLeftBackBarButtonItem(action: #selector(tappedNaviBackButton))
         self.setNavigationBarTitleString(title: "価格選択")
         self.tableView.register(PriceTableViewCell.self, forCellReuseIdentifier: PriceTableViewCell.className)
+
+        self.dataSource.getSalesPrice { (datas) in
+            for data in datas {
+                if let price = data.object(forKey: Constants.SalesPrices.prices) as? [Int] {
+                    self.dataSource.prices = price
+                    self.tableView.reloadData()
+                }
+            }
+
+        }
 
     }
 

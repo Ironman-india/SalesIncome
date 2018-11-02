@@ -9,6 +9,8 @@
 import Foundation
 import SwiftyUserDefaults
 import UIKit
+import SVProgressHUD
+import NCMB
 
 class SettingItem: NSObject {
     enum SettingKey {
@@ -20,7 +22,7 @@ class SettingItem: NSObject {
     public var title: String = ""
     public var placeholder: String = ""
     public var value: String
-    public var key: SettingKey? = nil
+    public var key: SettingKey
 
     init(key: SettingKey) {
         switch key {
@@ -40,6 +42,74 @@ class SettingItem: NSObject {
             let strArr = Defaults[.ITEM_PRICE].map({ String($0) })
             self.value = strArr.joined(separator: ",")
             self.key = key
+        }
+    }
+
+    public func updateSalesPrice(complete: @escaping (Int) -> Void) {
+        SVProgressHUD.show()
+        getSalesPrice { (datas) in
+            if datas.isEmpty {
+                self.saveSalesPrice(complete: { (code) in
+                    SVProgressHUD.dismiss()
+                    complete(code)
+                })
+            } else {
+                for data in datas {
+                    let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALES_PRICE)
+                    object.objectId = data.objectId
+                    let numn = self.value.split(separator: ",").map({ Int($0)! })
+                    object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesPrices.classes)
+                    object.setObject(numn, forKey: Constants.SalesPrices.prices)
+                    object.saveInBackground { (error) in
+                        SVProgressHUD.dismiss()
+                        if let errorString = error?.localizedDescription {
+                            NSLog(errorString)
+                            SVProgressHUD.showError(withStatus: errorString)
+                            complete(1)
+                        } else {
+                            complete(0)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public func saveSalesPrice(complete: @escaping (Int) -> Void) {
+        SVProgressHUD.show()
+        let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALES_PRICE)
+
+        object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesPrices.classes)
+        let numn = self.value.split(separator: ",").map({ Int($0)! })
+        object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesPrices.classes)
+        object.setObject(numn, forKey: Constants.SalesPrices.prices)
+        object.saveInBackground { (error) in
+            SVProgressHUD.dismiss()
+            if let errorString = error?.localizedDescription {
+                NSLog(errorString)
+                SVProgressHUD.showError(withStatus: errorString)
+                complete(1)
+            } else {
+                complete(0)
+            }
+        }
+
+    }
+
+    public func getSalesPrice(complete: @escaping ([NCMBObject]) -> Void) {
+        SVProgressHUD.show()
+        let query: NCMBQuery = NCMBQuery(className: Constants.NCMBClass.NCMB_SALES_PRICE)
+        query.whereKey(Constants.SalesPrices.classes, equalTo: Defaults[.USER_CLASS])
+
+        query.findObjectsInBackground { (datas, error) in
+            SVProgressHUD.dismiss()
+            if let errorString = error?.localizedDescription {
+                NSLog(errorString)
+                SVProgressHUD.showError(withStatus: errorString)
+                complete(datas as? [NCMBObject] ?? [NCMBObject]())
+            } else {
+                complete(datas as? [NCMBObject] ?? [NCMBObject]())
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ import SwiftyUserDefaults
 
 class SettingTableViewCell: UITableViewCell {
     private let settingTxf = SkyFloatingLabelTextField()
-    private let item: SettingItem? = nil
+    private var item: SettingItem!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -62,8 +62,23 @@ class SettingTableViewCell: UITableViewCell {
     }
 
     public func setCell(item: SettingItem) {
+        self.item = item
         self.settingTxf.placeholder = item.placeholder
         self.settingTxf.title = item.title
+        if item.key == .prices {
+            self.item?.getSalesPrice { (datas) in
+                self.settingTxf.text = item.value
+                for data in datas {
+                    if let arr = data.object(forKey: Constants.SalesPrices.prices) as? [Int] {
+                        let strArr = arr.map({ String($0) })
+                        DispatchQueue.main.async {
+                            self.item?.value = strArr.joined(separator: ",")
+                            self.settingTxf.text = item.value
+                        }
+                    }
+                }
+            }
+        }
         self.settingTxf.text = item.value
         self.settingTxf.addTarget(self, action: #selector(changedCullum), for: .editingDidEnd)
     }
@@ -73,6 +88,31 @@ class SettingTableViewCell: UITableViewCell {
     }
 
     @objc public func changedCullum() {
-        print(self.settingTxf.text)
+        print(self.item)
+        if let item = self.item {
+            switch item.key {
+            case .className:
+                Defaults[.USER_CLASS] = self.settingTxf.text ?? "NONE"
+
+            case .userName:
+                Defaults[.USER_NAME] = self.settingTxf.text ?? "Unknown"
+                break
+            case .prices:
+                self.item.value = self.settingTxf.text ?? ""
+                let numn = self.settingTxf.text?.split(separator: ",").map({ Int($0)! })
+                self.item?.updateSalesPrice(complete: { (code) in
+                    if code == 0 {
+                        self.settingTxf.errorMessage = ""
+                        if let num = numn {
+                            print(num)
+                            Defaults[.ITEM_PRICE] = num
+                        }
+                    } else {
+                        self.settingTxf.errorMessage = "保存に失敗しました"
+                    }
+                })
+            }
+        }
     }
 }
+
