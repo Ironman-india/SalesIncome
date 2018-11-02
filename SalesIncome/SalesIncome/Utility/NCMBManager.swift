@@ -15,7 +15,7 @@ class NCMBManager {
         let object: NCMBObject = NCMBObject.init(className: className)
         object.setObject(dataValue, forKey: keyName)
 
-        object.saveEventually { (error) in
+        object.saveInBackground { (error) in
             if let errorString = error?.localizedDescription {
                 NSLog(errorString)
                 complete(1)

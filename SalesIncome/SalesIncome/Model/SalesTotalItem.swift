@@ -37,10 +37,11 @@ class SalesTotalItem: NSObject {
                     object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesTotal.classes)
                     object.setObject(self.count + (data.object(forKey: Constants.SalesTotal.count) as? Int ?? 0), forKey: Constants.SalesTotal.count)
                     object.setObject(self.total + (data.object(forKey: Constants.SalesTotal.total) as? Int ?? 0), forKey: Constants.SalesTotal.total)
-                    object.saveEventually { (error) in
+                    object.saveInBackground { (error) in
                         SVProgressHUD.dismiss()
                         if let errorString = error?.localizedDescription {
                             NSLog(errorString)
+                            SVProgressHUD.showError(withStatus: errorString)
                             complete(1)
                         } else {
                             complete(0)
@@ -59,10 +60,11 @@ class SalesTotalItem: NSObject {
         object.setObject(self.count, forKey: Constants.SalesTotal.count)
         object.setObject(self.total, forKey: Constants.SalesTotal.total)
 
-        object.saveEventually { (error) in
+        object.saveInBackground { (error) in
             SVProgressHUD.dismiss()
             if let errorString = error?.localizedDescription {
                 NSLog(errorString)
+                SVProgressHUD.showError(withStatus: errorString)
                 complete(1)
             } else {
                 complete(0)
@@ -79,6 +81,7 @@ class SalesTotalItem: NSObject {
             SVProgressHUD.dismiss()
             if let errorString = error?.localizedDescription {
                 NSLog(errorString)
+                SVProgressHUD.showError(withStatus: errorString)
                 complete(datas as? [NCMBObject] ?? [NCMBObject]())
             } else {
                 complete(datas as? [NCMBObject] ?? [NCMBObject]())

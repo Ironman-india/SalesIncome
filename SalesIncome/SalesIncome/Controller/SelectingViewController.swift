@@ -9,7 +9,6 @@
 import UIKit
 import SnapKit
 import MaterialControls
-import NCMB
 import SkyFloatingLabelTextField
 
 class SelectingViewController: UIViewController {
@@ -99,7 +98,7 @@ extension SelectingViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.item.price = self.dataSource.prices[indexPath.item]
             let vc = SellingViewController(item: self.item)
             vc.delegate = self.delegate

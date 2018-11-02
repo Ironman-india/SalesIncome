@@ -9,6 +9,7 @@
 import UIKit
 import SkyFloatingLabelTextField
 import MaterialControls
+import SVProgressHUD
 
 class PaymentViewController: UIViewController {
     public var delegate: HomeViewControllerDelegate!
@@ -217,6 +218,8 @@ class PaymentViewController: UIViewController {
 
     @objc private func tappedEnterButton() {
         if self.change >= 0 || self.ticket > 0 {
+            SVProgressHUD.show()
+            self.enterButton.isUserInteractionEnabled = false
             self.receiptTxf.errorMessage = ""
             self.receiptTxf.text = String(self.receipt)
             self.ticketTxf.text = String(self.ticket)
@@ -225,15 +228,31 @@ class PaymentViewController: UIViewController {
             self.item.time = Date()
 
             self.item.saveSalesItem { (code) in
-                NSLog("Log保存%d", code)
-                let total = SalesTotalItem(total: self.item.total, count: self.item.count)
-                total.updateSalesTotal(complete: { (code) in
-                    NSLog("Total保存%d", code)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                if code == 0 {
+                    NSLog("Log保存%d", code)
+                    let total = SalesTotalItem(total: self.item.total, count: self.item.count)
+                    total.updateSalesTotal(complete: { (code) in
+                        SVProgressHUD.dismiss()
+                        if code == 0 {
+                            self.enterButton.isUserInteractionEnabled = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                self.navigationController?.dismiss(animated: true, completion: nil)
+                            }
+                            self.delegate.successPayment(item: self.item)
+                        } else {
+                            self.enterButton.isUserInteractionEnabled = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                self.navigationController?.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                    })
+                } else {
+                    SVProgressHUD.dismiss()
+                    self.enterButton.isUserInteractionEnabled = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         self.navigationController?.dismiss(animated: true, completion: nil)
-                        self.delegate.successPayment(item: self.item)
                     }
-                })
+                }
             }
         } else {
             self.receiptTxf.errorMessage = "不足"

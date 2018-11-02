@@ -34,10 +34,11 @@ class SalesPriceItem: NSObject {
                     object.objectId = data.objectId
                     object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesPrices.classes)
                     object.setObject(self.prices, forKey: Constants.SalesPrices.prices)
-                    object.saveEventually { (error) in
+                    object.saveInBackground { (error) in
                         SVProgressHUD.dismiss()
                         if let errorString = error?.localizedDescription {
                             NSLog(errorString)
+                            SVProgressHUD.showError(withStatus: errorString)
                             complete(1)
                         } else {
                             complete(0)
@@ -56,10 +57,11 @@ class SalesPriceItem: NSObject {
         object.setObject(self.prices, forKey: Constants.SalesPrices.prices)
 
 
-        object.saveEventually { (error) in
+        object.saveInBackground { (error) in
             SVProgressHUD.dismiss()
             if let errorString = error?.localizedDescription {
                 NSLog(errorString)
+                SVProgressHUD.showError(withStatus: errorString)
                 complete(1)
             } else {
                 complete(0)
@@ -76,6 +78,7 @@ class SalesPriceItem: NSObject {
             SVProgressHUD.dismiss()
             if let errorString = error?.localizedDescription {
                 NSLog(errorString)
+                SVProgressHUD.showError(withStatus: errorString)
                 complete(datas as? [NCMBObject] ?? [NCMBObject]())
             } else {
                 complete(datas as? [NCMBObject] ?? [NCMBObject]())

@@ -10,7 +10,6 @@ import Foundation
 import SwiftyUserDefaults
 import UIKit
 
-
 class SettingItem: NSObject {
     enum SettingKey {
         case className
@@ -21,6 +20,7 @@ class SettingItem: NSObject {
     public var title: String = ""
     public var placeholder: String = ""
     public var value: String
+    public var key: SettingKey? = nil
 
     init(key: SettingKey) {
         switch key {
@@ -28,15 +28,18 @@ class SettingItem: NSObject {
             self.title = "クラス名"
             self.placeholder = "保存先テーブル"
             self.value = String(Defaults[.USER_CLASS])
+            self.key = key
         case .userName:
             self.title = "ユーザー名"
             self.placeholder = "識別用"
             self.value = String(Defaults[.USER_NAME])
+            self.key = key
         case .prices:
             self.title = "価格"
             self.placeholder = "「,」区切り"
             let strArr = Defaults[.ITEM_PRICE].map({ String($0) })
             self.value = strArr.joined(separator: ",")
+            self.key = key
         }
     }
 }

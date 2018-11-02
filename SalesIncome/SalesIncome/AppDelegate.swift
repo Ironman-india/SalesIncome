@@ -13,7 +13,6 @@ import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
 
 
@@ -50,6 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = UINavigationController.init(rootViewController: HomeViewController())
         self.window?.makeKeyAndVisible()
+
+        SVProgressHUD.setDefaultMaskType(.clear)
     }
 
     private func ncmbInitializeSetting() {

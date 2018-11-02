@@ -9,7 +9,6 @@
 import UIKit
 import SnapKit
 import MaterialControls
-import NCMB
 
 protocol HomeViewControllerDelegate {
     func successPayment(item: SalesItem)
@@ -22,6 +21,7 @@ class HomeViewController: UIViewController {
     private let cancellButton = MDButton()
     private let customButton = MDButton()
     private let logTextView = UITextView()
+    private var item: SalesItem?
 
     override func loadView() {
         super.loadView()
@@ -45,7 +45,11 @@ class HomeViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        self.sellButton.mdButtonDelegate = self
+
         SalesTotalItem().getSalesTotal { (datas) in
+            self.salesProceedsLabel.text = "売り上げ: 0円"
+            self.salesCount.text = "売り個数: 0個"
             for data in datas {
                 self.salesProceedsLabel.text = "売り上げ: \(data.object(forKey: Constants.SalesTotal.total) ?? 0)円"
                 self.salesCount.text = "売り個数: \(data.object(forKey: Constants.SalesTotal.count) ?? 0)個"
@@ -117,7 +121,7 @@ class HomeViewController: UIViewController {
         self.cancellButton.rippleColor = Constants.Color.AppleGray
         self.cancellButton.backgroundColor = Constants.Color.AppleBlack
         self.cancellButton.layer.cornerRadius = 5
-        self.cancellButton.setTitle("取り消し", for: .normal)
+        self.cancellButton.setTitle("最後の注文を取り消し", for: .normal)
         self.cancellButton.setTitleColor(UIColor.white, for: .normal)
         self.cancellButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         self.cancellButton.addTarget(self, action: #selector(tappedCancelButton), for: .touchUpInside)
@@ -134,7 +138,7 @@ class HomeViewController: UIViewController {
         self.logTextView.backgroundColor = Constants.Color.AppleBlack
 //        self.logTextView.layer.cornerRadius = 5
         self.logTextView.alpha = 1.0
-        self.logTextView.isSelectable = true
+        self.logTextView.isSelectable = false
         self.logTextView.isScrollEnabled = true
         self.logTextView.isEditable = false
         self.logTextView.addShadow(direction: .top)
@@ -150,6 +154,8 @@ class HomeViewController: UIViewController {
 
     @objc private func tappedReloadButton() {
         SalesTotalItem().getSalesTotal { (datas) in
+            self.salesProceedsLabel.text = "売り上げ: 0円"
+            self.salesCount.text = "売り個数: 0個"
             for data in datas {
                 self.salesProceedsLabel.text = "売り上げ: \(data.object(forKey: Constants.SalesTotal.total) ?? 0)円"
                 self.salesCount.text = "売り個数: \(data.object(forKey: Constants.SalesTotal.count) ?? 0)個"
@@ -157,8 +163,9 @@ class HomeViewController: UIViewController {
         }
     }
 
+
     @objc private func tappedSettingButton() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             let vc = SettingViewController()
             self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
         }
@@ -166,7 +173,7 @@ class HomeViewController: UIViewController {
 
     @objc private func tappedSellButton() {
         let item = SalesItem(transactionType: "売り", count: 0, price: 20, total: 0, ticket: 0)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             let vc = SelectingViewController(item: item)
             vc.delegate = self
             self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
@@ -174,6 +181,29 @@ class HomeViewController: UIViewController {
     }
 
     @objc private func tappedCancelButton() {
+        if let item = self.item {
+            item.transactionType = "破棄"
+            item.removeSalesItem { (code) in
+                if code == 0 {
+                    SalesTotalItem(total: item.total * -1, count: item.count * -1).updateSalesTotal(complete: { (code2) in
+                        if code2 == 0 {
+                            DispatchQueue.main.async {
+                                self.logTextView.insertText(item.outputStringOneLine())
+                            }
+                            self.item = nil
+                            SalesTotalItem().getSalesTotal { (datas) in
+                                self.salesProceedsLabel.text = "売り上げ: 0円"
+                                self.salesCount.text = "売り個数: 0個"
+                                for data in datas {
+                                    self.salesProceedsLabel.text = "売り上げ: \(data.object(forKey: Constants.SalesTotal.total) ?? 0)円"
+                                    self.salesCount.text = "売り個数: \(data.object(forKey: Constants.SalesTotal.count) ?? 0)個"
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+        }
     }
 
 
@@ -188,8 +218,21 @@ class HomeViewController: UIViewController {
     */
 }
 
+extension HomeViewController: MDButtonDelegate {
+    func rotationStarted(_ sender: Any) {
+        print("sta")
+    }
+
+    func rotationCompleted(_ sender: Any) {
+        print("fii")
+    }
+}
+
 extension HomeViewController: HomeViewControllerDelegate {
     func successPayment(item: SalesItem) {
-        self.logTextView.insertText(item.outputStringOneLine())
+        DispatchQueue.main.async {
+            self.item = item
+            self.logTextView.insertText(item.outputStringOneLine())
+        }
     }
 }

@@ -92,9 +92,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.className, for: indexPath)
-        (cell as? SettingTableViewCell)?.setCell(placeholder: dataSource[indexPath.item].placeholder,
-                                                 title: dataSource[indexPath.item].title,
-                                                 text: dataSource[indexPath.item].value)
+        (cell as? SettingTableViewCell)?.setCell(item: dataSource[indexPath.item])
         return cell
     }
 

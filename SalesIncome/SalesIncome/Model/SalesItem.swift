@@ -46,6 +46,21 @@ class SalesItem: NSObject {
         }
     }
 
+    public func removeSalesItem(complete: @escaping (Int) -> Void) {
+        SVProgressHUD.show()
+        let object: NCMBObject = NCMBObject(className: Constants.NCMBClass.NCMB_SALEA_LOG, objectId: self.objectId)
+        object.deleteInBackground { (error) in
+            SVProgressHUD.dismiss()
+            if let errorString = error?.localizedDescription {
+                NSLog(errorString)
+                SVProgressHUD.showError(withStatus: errorString)
+                complete(1)
+            } else {
+                complete(0)
+            }
+        }
+    }
+
     public func saveSalesItem(complete: @escaping (Int) -> Void) {
         SVProgressHUD.show()
         let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALEA_LOG)
@@ -58,17 +73,19 @@ class SalesItem: NSObject {
         object.setObject(Defaults[.USER_NAME], forKey: Constants.SalesItem.user)
         object.setObject(self.time, forKey: Constants.SalesItem.time)
 
-        object.saveEventually { (error) in
+        object.saveInBackground { (error) in
+            SVProgressHUD.dismiss()
             if let errorString = error?.localizedDescription {
                 NSLog(errorString)
-                self.objectId = object.objectId
+                SVProgressHUD.showError(withStatus: errorString)
                 complete(1)
             } else {
-                self.objectId = object.objectId
-
                 complete(0)
             }
-            SVProgressHUD.dismiss()
+
+            if let id = object.objectId {
+                self.objectId = id
+            }
         }
     }
 }

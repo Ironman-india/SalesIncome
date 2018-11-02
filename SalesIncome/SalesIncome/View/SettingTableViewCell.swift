@@ -12,6 +12,7 @@ import SwiftyUserDefaults
 
 class SettingTableViewCell: UITableViewCell {
     private let settingTxf = SkyFloatingLabelTextField()
+    private let item: SettingItem? = nil
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -60,11 +61,11 @@ class SettingTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    public func setCell(placeholder: String, title: String, text: String) {
-        self.settingTxf.placeholder = placeholder
-        self.settingTxf.title = title
-        self.settingTxf.text = text
-        self.settingTxf.addTarget(self, action: #selector(changedCullum), for: .editingChanged)
+    public func setCell(item: SettingItem) {
+        self.settingTxf.placeholder = item.placeholder
+        self.settingTxf.title = item.title
+        self.settingTxf.text = item.value
+        self.settingTxf.addTarget(self, action: #selector(changedCullum), for: .editingDidEnd)
     }
 
     @objc func closeKeyBoard() {

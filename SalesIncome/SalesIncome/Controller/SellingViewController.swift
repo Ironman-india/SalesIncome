@@ -162,7 +162,7 @@ class SellingViewController: UIViewController {
                 self.countTxf.errorMessage = ""
                 self.item.total = self.total
                 self.item.count = self.count
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     let vc = PaymentViewController(item: self.item)
                     vc.delegate = self.delegate
                     self.navigationController?.pushViewController(vc, animated: true)
