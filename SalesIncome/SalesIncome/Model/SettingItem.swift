@@ -45,8 +45,24 @@ class SettingItem: NSObject {
         }
     }
 
-    public func updateSalesPrice(complete: @escaping (Int) -> Void) {
+    public func updateSalesPrice(priceData: [Int] = [Int](), complete: @escaping (Int) -> Void) {
         SVProgressHUD.show()
+
+        var num = [Int]()
+        if priceData.isEmpty {
+            let numn = self.value.split(separator: ",")
+            for numi in numn {
+                if let newNum = Int(numi) {
+                    num.append(newNum)
+                } else {
+                    complete(0)
+                    return
+                }
+            }
+        } else {
+            num = priceData
+        }
+
         getSalesPrice { (datas) in
             if datas.isEmpty {
                 self.saveSalesPrice(complete: { (code) in
@@ -57,9 +73,8 @@ class SettingItem: NSObject {
                 for data in datas {
                     let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALES_PRICE)
                     object.objectId = data.objectId
-                    let numn = self.value.split(separator: ",").map({ Int($0)! })
                     object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesPrices.classes)
-                    object.setObject(numn, forKey: Constants.SalesPrices.prices)
+                    object.setObject(num, forKey: Constants.SalesPrices.prices)
                     object.saveInBackground { (error) in
                         SVProgressHUD.dismiss()
                         if let errorString = error?.localizedDescription {
@@ -77,12 +92,22 @@ class SettingItem: NSObject {
 
     public func saveSalesPrice(complete: @escaping (Int) -> Void) {
         SVProgressHUD.show()
+        var num = [Int]()
+        let numn = self.value.split(separator: ",")
+        for numi in numn {
+            if let newNum = Int(numi) {
+                num.append(newNum)
+            } else {
+                complete(0)
+                return
+            }
+        }
+
         let object: NCMBObject = NCMBObject.init(className: Constants.NCMBClass.NCMB_SALES_PRICE)
 
         object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesPrices.classes)
-        let numn = self.value.split(separator: ",").map({ Int($0)! })
         object.setObject(Defaults[.USER_CLASS], forKey: Constants.SalesPrices.classes)
-        object.setObject(numn, forKey: Constants.SalesPrices.prices)
+        object.setObject(num, forKey: Constants.SalesPrices.prices)
         object.saveInBackground { (error) in
             SVProgressHUD.dismiss()
             if let errorString = error?.localizedDescription {

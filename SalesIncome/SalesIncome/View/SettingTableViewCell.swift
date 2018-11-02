@@ -99,18 +99,25 @@ class SettingTableViewCell: UITableViewCell {
                 break
             case .prices:
                 self.item.value = self.settingTxf.text ?? ""
-                let numn = self.settingTxf.text?.split(separator: ",").map({ Int($0)! })
-                self.item?.updateSalesPrice(complete: { (code) in
+                let numn = self.settingTxf.text?.split(separator: ",")
+                var num = [Int]()
+                for numi in numn ?? [Substring]() {
+                    if let newNum = Int(numi) {
+                        num.append(newNum)
+                    } else {
+                        self.settingTxf.errorMessage = "保存に失敗しました"
+                        return
+                    }
+                }
+
+                self.item.updateSalesPrice(priceData: num) { (code) in
                     if code == 0 {
                         self.settingTxf.errorMessage = ""
-                        if let num = numn {
-                            print(num)
-                            Defaults[.ITEM_PRICE] = num
-                        }
+                        Defaults[.ITEM_PRICE] = num
                     } else {
                         self.settingTxf.errorMessage = "保存に失敗しました"
                     }
-                })
+                }
             }
         }
     }
