@@ -16,12 +16,14 @@ extension UIViewController {
     /// Also add the left gesture.
     func setLeftBackBarButtonItem(action: Selector = #selector(tappedBackButton), image: UIImage? = R.image.back()) {
         let barButtonItem = UIBarButtonItem()
-        let button = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: 24.0, height: 24.0))
-        button.setBackgroundImage(image, for: .normal)
+        let button = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: 40.0, height: 30.0))
+        button.setImage(image, for: .normal)
+        button.contentMode = .scaleAspectFit
+//        button.setBackgroundImage(image, for: .normal)
         button.addTarget(self, action: action, for: .touchUpInside)
         barButtonItem.customView = button
-        barButtonItem.customView?.widthAnchor.constraint(equalToConstant: 24.0).isActive = true
-        barButtonItem.customView?.heightAnchor.constraint(equalToConstant: 24.0).isActive = true
+        barButtonItem.customView?.widthAnchor.constraint(equalToConstant: 25.0).isActive = true
+        barButtonItem.customView?.heightAnchor.constraint(equalToConstant: 25.0).isActive = true
         barButtonItem.tintColor = UIColor.clear
         self.navigationItem.leftBarButtonItem = barButtonItem
     }
@@ -29,12 +31,14 @@ extension UIViewController {
     /// Also add the left gesture.
     func setRightCloseBarButtonItem(action: Selector = #selector(tappedCloseButton), image: UIImage? = R.image.close()) {
         let barButtonItem = UIBarButtonItem()
-        let button = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: 24.0, height: 24.0))
-        button.setBackgroundImage(image, for: .normal)
+        let button = UIButton(frame: CGRect(x: 0.0, y: 0.0, width: 40.0, height: 30.0))
+        button.setImage(image, for: .normal)
+        button.contentMode = .scaleAspectFit
+//        button.setBackgroundImage(image, for: .normal)
         button.addTarget(self, action: action, for: .touchUpInside)
         barButtonItem.customView = button
-        barButtonItem.customView?.widthAnchor.constraint(equalToConstant: 24.0).isActive = true
-        barButtonItem.customView?.heightAnchor.constraint(equalToConstant: 24.0).isActive = true
+        barButtonItem.customView?.widthAnchor.constraint(equalToConstant: 25.0).isActive = true
+        barButtonItem.customView?.heightAnchor.constraint(equalToConstant: 25.0).isActive = true
         barButtonItem.tintColor = UIColor.clear
         self.navigationItem.rightBarButtonItem = barButtonItem
     }

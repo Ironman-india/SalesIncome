@@ -27,13 +27,13 @@ class SettingItem: NSObject {
     init(key: SettingKey) {
         switch key {
         case .className:
-            self.title = "クラス名"
-            self.placeholder = "保存先テーブル"
+            self.title = "保存先クラス"
+            self.placeholder = "保存先クラス"
             self.value = String(Defaults[.USER_CLASS])
             self.key = key
         case .userName:
-            self.title = "ユーザー名"
-            self.placeholder = "識別用"
+            self.title = "識別名"
+            self.placeholder = "識別名"
             self.value = String(Defaults[.USER_NAME])
             self.key = key
         case .prices:

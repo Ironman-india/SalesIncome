@@ -34,6 +34,16 @@ class SettingViewController: UIViewController {
         allLayoutSetting()
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.view.endEditing(true)
+    }
+
     private func allLayoutSetting() {
         self.tableView.delegate = self
         self.tableView.dataSource = self

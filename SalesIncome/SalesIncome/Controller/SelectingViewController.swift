@@ -8,7 +8,6 @@
 
 import UIKit
 import SnapKit
-import MaterialControls
 import SkyFloatingLabelTextField
 
 class SelectingViewController: UIViewController {
@@ -69,9 +68,7 @@ class SelectingViewController: UIViewController {
                     self.tableView.reloadData()
                 }
             }
-
         }
-
     }
 
     @objc private func tappedNaviBackButton() {
@@ -104,7 +101,7 @@ extension SelectingViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 150
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

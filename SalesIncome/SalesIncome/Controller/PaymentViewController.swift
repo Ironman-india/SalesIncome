@@ -8,8 +8,8 @@
 
 import UIKit
 import SkyFloatingLabelTextField
-import MaterialControls
 import SVProgressHUD
+import ZFRippleButton
 
 class PaymentViewController: UIViewController {
     public var delegate: HomeViewControllerDelegate!
@@ -32,29 +32,21 @@ class PaymentViewController: UIViewController {
     }
     private var receipt: Int = 0 {
         didSet {
-            if self.ticket > 0 {
-                let reChange = (receipt + (self.ticket * self.ticketPrice)) - self.total
-                if reChange <= 0 {
-                    self.change = reChange
-                } else {
-                    self.change = 0
-                }
+            let receiptTicket = self.ticketPrice * self.ticket
+            if self.total < receiptTicket {
+                self.change = 0
             } else {
-                self.change = receipt - self.total
+                self.change = receiptTicket + self.receipt - self.total
             }
         }
     }
     private var ticket: Int = 0 {
         didSet {
-            if ticket > 0 {
-                let reChange = (self.receipt + (ticket * self.ticketPrice)) - self.total
-                if reChange <= 0 {
-                    self.change = reChange
-                } else {
-                    self.change = 0
-                }
+            let receiptTicket = self.ticketPrice * self.ticket
+            if self.total < receiptTicket {
+                self.change = 0
             } else {
-                self.change = self.receipt - self.total
+                self.change = receiptTicket + receipt - self.total
             }
         }
     }
@@ -62,7 +54,7 @@ class PaymentViewController: UIViewController {
     private let changeLabel = UILabel()
     private let receiptTxf = SkyFloatingLabelTextField()
     private let ticketTxf = SkyFloatingLabelTextField()
-    private let enterButton = MDButton()
+    private let enterButton = ZFRippleButton()
 
     init(item: SalesItem) {
         self.total = item.total
@@ -87,15 +79,23 @@ class PaymentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.receiptTxf.becomeFirstResponder()
         self.hideKeyboardWhenTappedAround()
-
         // Do any additional setup after loading the view.
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.receiptTxf.becomeFirstResponder()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         self.view.endEditing(true)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.enterButton.isHighlighted = false
     }
 
     // MARK: - Layout Setting
@@ -122,10 +122,10 @@ class PaymentViewController: UIViewController {
         self.totalLabel.font = UIFont.boldSystemFont(ofSize: 20)
         self.totalLabel.textColor = Constants.Color.AppleBlack
         self.totalLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(20)
+            make.top.equalTo(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.7)
-            make.height.equalTo(40)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.05)
         }
 
         self.changeLabel.text = "お釣り: \(self.change)円"
@@ -134,8 +134,8 @@ class PaymentViewController: UIViewController {
         self.changeLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.totalLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.7)
-            make.height.equalTo(40)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.05)
         }
 
         self.receiptTxf.placeholder = "預かり: \(total)円"
@@ -146,8 +146,8 @@ class PaymentViewController: UIViewController {
         self.receiptTxf.snp.makeConstraints { (make) in
             make.top.equalTo(self.changeLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.7)
-            make.height.equalTo(50)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.1)
         }
 
         self.ticketTxf.placeholder = "食券: \(ticket)枚"
@@ -157,15 +157,16 @@ class PaymentViewController: UIViewController {
         self.ticketTxf.snp.makeConstraints { (make) in
             make.top.equalTo(self.receiptTxf.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.7)
-            make.height.equalTo(50)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.1)
         }
 
-        self.enterButton.mdButtonType = .raised
+        self.enterButton.trackTouchLocation = true
+        self.enterButton.buttonCornerRadius = 5
         self.enterButton.rippleColor = Constants.Color.AppleGray
+        self.enterButton.rippleBackgroundColor = Constants.Color.AppleBlack
         self.enterButton.backgroundColor = Constants.Color.AppleBlack
-        self.enterButton.layer.cornerRadius = 5
-        self.enterButton.setTitle("支払い", for: .normal)
+        self.enterButton.setTitle("支払い完了", for: .normal)
         self.enterButton.setTitleColor(UIColor.white, for: .normal)
         self.enterButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         self.enterButton.addTarget(self, action: #selector(tappedEnterButton), for: .touchUpInside)
@@ -173,8 +174,8 @@ class PaymentViewController: UIViewController {
         self.enterButton.snp.makeConstraints { (make) in
             make.top.equalTo(self.ticketTxf.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.7)
-            make.height.equalTo(60)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.1)
         }
     }
 
@@ -186,7 +187,7 @@ class PaymentViewController: UIViewController {
 // MARK: - Action
     @objc private func receiptDidChange(_ textField: UITextField) {
         if let text = textField.text {
-            if text.count <= 5 {
+            if text.count <= 10 {
                 self.receipt = Int(text) ?? 0
             }
             self.receiptTxf.errorMessage = ""
@@ -198,7 +199,7 @@ class PaymentViewController: UIViewController {
 
     @objc private func ticketDidChange(_ textField: UITextField) {
         if let text = textField.text {
-            if text.count <= 5 {
+            if text.count <= 10 {
                 self.ticket = Int(text) ?? 0
             }
             self.receiptTxf.errorMessage = ""
@@ -217,7 +218,7 @@ class PaymentViewController: UIViewController {
     }
 
     @objc private func tappedEnterButton() {
-        if self.change >= 0 || self.ticket > 0 {
+        if self.change >= 0 {
             SVProgressHUD.show()
             self.enterButton.isUserInteractionEnabled = false
             self.receiptTxf.errorMessage = ""
@@ -229,7 +230,6 @@ class PaymentViewController: UIViewController {
 
             self.item.saveSalesItem { (code) in
                 if code == 0 {
-                    NSLog("Log保存%d", code)
                     let total = SalesTotalItem(total: self.item.total, count: self.item.count)
                     total.updateSalesTotal(complete: { (code) in
                         SVProgressHUD.dismiss()

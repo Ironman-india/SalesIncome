@@ -8,7 +8,7 @@
 
 import UIKit
 import SnapKit
-import MaterialControls
+import ZFRippleButton
 
 protocol HomeViewControllerDelegate {
     func successPayment(item: SalesItem)
@@ -17,9 +17,8 @@ protocol HomeViewControllerDelegate {
 class HomeViewController: UIViewController {
     private let salesProceedsLabel = UILabel()
     private let salesCount = UILabel()
-    private let sellButton = MDButton()
-    private let cancellButton = MDButton()
-    private let customButton = MDButton()
+    private let sellButton = ZFRippleButton()
+    private let cancellButton = ZFRippleButton()
     private let logTextView = UITextView()
     private var item: SalesItem?
 
@@ -29,7 +28,6 @@ class HomeViewController: UIViewController {
         self.view.addSubview(self.salesCount)
         self.view.addSubview(self.sellButton)
         self.view.addSubview(self.cancellButton)
-//        self.view.addSubview(self.customButton)
         self.view.addSubview(self.logTextView)
 
         allLayoutSetting()
@@ -45,8 +43,6 @@ class HomeViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.sellButton.mdButtonDelegate = self
-
         SalesTotalItem().getSalesTotal { (datas) in
             self.salesProceedsLabel.text = "売り上げ: 0円"
             self.salesCount.text = "売り個数: 0個"
@@ -56,7 +52,6 @@ class HomeViewController: UIViewController {
             }
         }
     }
-
 
     // MARK: - LayoutSetting
     private func allLayoutSetting() {
@@ -79,16 +74,16 @@ class HomeViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.barStyle = .black
-        self.setNavigationBarTitleString(title: "売上計算")
+        self.setNavigationBarTitleString(title: "販売")
 
         self.salesProceedsLabel.text = "売り上げ: -円"
         self.salesProceedsLabel.font = UIFont.boldSystemFont(ofSize: 25)
         self.salesProceedsLabel.textColor = Constants.Color.AppleBlack
         self.salesProceedsLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(20)
+            make.top.equalTo(10)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
-            make.height.equalTo(50)
+            make.height.equalToSuperview().multipliedBy(0.08)
         }
 
         self.salesCount.text = "売り個数: -個"
@@ -98,13 +93,15 @@ class HomeViewController: UIViewController {
             make.top.equalTo(self.salesProceedsLabel.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
-            make.height.equalTo(50)
+            make.height.equalToSuperview().multipliedBy(0.08)
         }
 
-        self.sellButton.mdButtonType = .raised
+
+        self.sellButton.trackTouchLocation = true
+        self.sellButton.buttonCornerRadius = 5
         self.sellButton.rippleColor = Constants.Color.AppleGray
+        self.sellButton.rippleBackgroundColor = Constants.Color.AppleBlack
         self.sellButton.backgroundColor = Constants.Color.AppleBlack
-        self.sellButton.layer.cornerRadius = 5
         self.sellButton.setTitle("販売", for: .normal)
         self.sellButton.setTitleColor(UIColor.white, for: .normal)
         self.sellButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -113,14 +110,15 @@ class HomeViewController: UIViewController {
         self.sellButton.snp.makeConstraints { (make) in
             make.top.equalTo(self.salesCount.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.85)
-            make.height.equalTo(80)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.1)
         }
 
-        self.cancellButton.mdButtonType = .raised
+        self.cancellButton.trackTouchLocation = true
+        self.cancellButton.buttonCornerRadius = 5
         self.cancellButton.rippleColor = Constants.Color.AppleGray
+        self.cancellButton.rippleBackgroundColor = Constants.Color.AppleBlack
         self.cancellButton.backgroundColor = Constants.Color.AppleBlack
-        self.cancellButton.layer.cornerRadius = 5
         self.cancellButton.setTitle("最後の注文を取り消し", for: .normal)
         self.cancellButton.setTitleColor(UIColor.white, for: .normal)
         self.cancellButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -129,8 +127,8 @@ class HomeViewController: UIViewController {
         self.cancellButton.snp.makeConstraints { (make) in
             make.top.equalTo(self.sellButton.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.85)
-            make.height.equalTo(50)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.08)
         }
 
         self.logTextView.text = "売り, 金額: -円, 個数: -個, -円/個, 食券: -枚, ----/--/-- - --:--:--\n"
@@ -143,7 +141,7 @@ class HomeViewController: UIViewController {
         self.logTextView.isEditable = false
         self.logTextView.addShadow(direction: .top)
         self.logTextView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.cancellButton.snp.bottom).offset(20)
+            make.top.equalTo(self.cancellButton.snp.bottom).offset(30)
             make.width.equalToSuperview()
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -216,16 +214,6 @@ class HomeViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-}
-
-extension HomeViewController: MDButtonDelegate {
-    func rotationStarted(_ sender: Any) {
-        print("sta")
-    }
-
-    func rotationCompleted(_ sender: Any) {
-        print("fii")
-    }
 }
 
 extension HomeViewController: HomeViewControllerDelegate {

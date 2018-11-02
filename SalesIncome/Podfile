@@ -11,8 +11,8 @@ def install_pods
     pod 'SVProgressHUD'                      , '~> 2.2.5'
     pod 'NCMB'                               , :git => 'https://github.com/NIFCloud-mbaas/ncmb_ios.git'
     pod 'SwiftyUserDefaults', '4.0.0-alpha.1'
-    pod 'MaterialControls'
     pod 'SkyFloatingLabelTextField', '~> 3.0'
+    pod 'ZFRippleButton'
     # Pods for FiMap
 end
 
@@ -20,7 +20,8 @@ target 'SalesIncome' do
     install_pods
 end
 swift3_names = [
-'TLFloatLabelTextField'
+'TLFloatLabelTextField',
+'ZFRippleButton'
 ]
 
 swift4_names = [

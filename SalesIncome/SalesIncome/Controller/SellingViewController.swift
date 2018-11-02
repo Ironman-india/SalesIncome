@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import MaterialControls
 import SkyFloatingLabelTextField
+import ZFRippleButton
 
 class SellingViewController: UIViewController {
     public var delegate: HomeViewControllerDelegate!
@@ -31,7 +31,7 @@ class SellingViewController: UIViewController {
     private let priceLabel = UILabel()
     private let totalLabel = UILabel()
     private let countTxf = SkyFloatingLabelTextField()
-    private let enterButton = MDButton()
+    private let enterButton = ZFRippleButton()
 
 
     init(item: SalesItem) {
@@ -56,10 +56,14 @@ class SellingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.priceLabel.text = "一個: \(price)円"
-        self.countTxf.becomeFirstResponder()
         self.hideKeyboardWhenTappedAround()
 
         // Do any additional setup after loading the view.
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.countTxf.becomeFirstResponder()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -67,6 +71,10 @@ class SellingViewController: UIViewController {
         self.view.endEditing(true)
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.enterButton.isHighlighted = false
+    }
     // MARK: - Layout Setting
     private func allLayoutSetting() {
         let topColor = Constants.Color.PureWhite
@@ -90,10 +98,10 @@ class SellingViewController: UIViewController {
         self.priceLabel.font = UIFont.boldSystemFont(ofSize: 20)
         self.priceLabel.textColor = Constants.Color.AppleBlack
         self.priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(20)
+            make.top.equalTo(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.7)
-            make.height.equalTo(40)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.05)
         }
 
         self.totalLabel.text = "合計: 0円"
@@ -102,11 +110,11 @@ class SellingViewController: UIViewController {
         self.totalLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.priceLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.7)
-            make.height.equalTo(40)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.05)
         }
 
-        self.countTxf.placeholder = "個数"
+        self.countTxf.placeholder = "0個"
         self.countTxf.title = "販売個数"
         self.countTxf.delegate = self
         self.countTxf.setMyAppStyle()
@@ -115,15 +123,16 @@ class SellingViewController: UIViewController {
         self.countTxf.snp.makeConstraints { (make) in
             make.top.equalTo(self.totalLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.7)
-            make.height.equalTo(50)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.1)
         }
 
-        self.enterButton.mdButtonType = .raised
+        self.enterButton.trackTouchLocation = true
+        self.enterButton.buttonCornerRadius = 5
         self.enterButton.rippleColor = Constants.Color.AppleGray
+        self.enterButton.rippleBackgroundColor = Constants.Color.AppleBlack
         self.enterButton.backgroundColor = Constants.Color.AppleBlack
-        self.enterButton.layer.cornerRadius = 5
-        self.enterButton.setTitle("支払い", for: .normal)
+        self.enterButton.setTitle("支払い画面へ", for: .normal)
         self.enterButton.setTitleColor(UIColor.white, for: .normal)
         self.enterButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         self.enterButton.addTarget(self, action: #selector(tappedEnterButton), for: .touchUpInside)
@@ -131,8 +140,8 @@ class SellingViewController: UIViewController {
         self.enterButton.snp.makeConstraints { (make) in
             make.top.equalTo(self.countTxf.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.7)
-            make.height.equalTo(60)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.1)
         }
     }
 
@@ -142,7 +151,7 @@ class SellingViewController: UIViewController {
 
     @objc private func countDidChange(_ textField: UITextField) {
         if let text = textField.text {
-            if text.count <= 5 {
+            if text.count <= 4 {
                 self.count = Int(text) ?? 0
             }
             self.countTxf.errorMessage = ""

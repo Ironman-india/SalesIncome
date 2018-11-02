@@ -1,5 +1,4 @@
 PODS:
-  - MaterialControls (1.2.2)
   - NCMB (3.0.0)
   - R.swift (4.0.0):
     - R.swift.Library (~> 4.0.0)
@@ -9,9 +8,9 @@ PODS:
   - SnapKit (4.0.1)
   - SVProgressHUD (2.2.5)
   - SwiftyUserDefaults (4.0.0-alpha.1)
+  - ZFRippleButton (0.6)
 
 DEPENDENCIES:
-  - MaterialControls
   - NCMB (from `https://github.com/NIFCloud-mbaas/ncmb_ios.git`)
   - R.swift (~> 4.0.0)
   - SkyFloatingLabelTextField (~> 3.0)
@@ -19,10 +18,10 @@ DEPENDENCIES:
   - SnapKit (~> 4.0.1)
   - SVProgressHUD (~> 2.2.5)
   - SwiftyUserDefaults (= 4.0.0-alpha.1)
+  - ZFRippleButton
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - MaterialControls
     - R.swift
     - R.swift.Library
     - SkyFloatingLabelTextField
@@ -30,6 +29,7 @@ SPEC REPOS:
     - SnapKit
     - SVProgressHUD
     - SwiftyUserDefaults
+    - ZFRippleButton
 
 EXTERNAL SOURCES:
   NCMB:
@@ -41,7 +41,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/NIFCloud-mbaas/ncmb_ios.git
 
 SPEC CHECKSUMS:
-  MaterialControls: 1c6b29e78d3a13d8dd6a67ed31b6d26eb5de8f72
   NCMB: 53f7cd60388556330e18cc9196cbe4f897d5c091
   R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
@@ -50,7 +49,8 @@ SPEC CHECKSUMS:
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyUserDefaults: cebe0ff9472f52699772a514b6f7155861d8069b
+  ZFRippleButton: 62ea35e209757704dea697d66489fe69c13d7b77
 
-PODFILE CHECKSUM: 56f96a60bffe147366fa23df26c21f93f190483b
+PODFILE CHECKSUM: 3ea647e977c1b38e6789d10e7a738bf6138f9977
 
 COCOAPODS: 1.5.3

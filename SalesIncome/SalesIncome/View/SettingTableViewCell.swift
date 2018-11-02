@@ -88,10 +88,14 @@ class SettingTableViewCell: UITableViewCell {
     }
 
     @objc public func changedCullum() {
-        print(self.item)
         if let item = self.item {
             switch item.key {
             case .className:
+                if self.settingTxf.text?.isEmpty ?? true {
+                    self.settingTxf.errorMessage = "必須です"
+                    return
+                }
+
                 Defaults[.USER_CLASS] = self.settingTxf.text ?? "NONE"
 
             case .userName:
