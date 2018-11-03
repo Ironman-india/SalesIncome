@@ -81,10 +81,28 @@ class SettingTableViewCell: UITableViewCell {
         }
         self.settingTxf.text = item.value
         self.settingTxf.addTarget(self, action: #selector(changedCullum), for: .editingDidEnd)
+        self.settingTxf.addTarget(self, action: #selector(beginChangedCullum), for: .editingDidBegin)
     }
 
     @objc func closeKeyBoard() {
         self.endEditing(true)
+    }
+
+    @objc public func beginChangedCullum() {
+        if item.key == .prices {
+            self.item?.getSalesPrice { (datas) in
+                self.settingTxf.text = self.item.value
+                for data in datas {
+                    if let arr = data.object(forKey: Constants.SalesPrices.prices) as? [Int] {
+                        let strArr = arr.map({ String($0) })
+                        DispatchQueue.main.async {
+                            self.item?.value = strArr.joined(separator: ",")
+                            self.settingTxf.text = self.item.value
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @objc public func changedCullum() {

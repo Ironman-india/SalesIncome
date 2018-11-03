@@ -101,7 +101,7 @@ extension SelectingViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return UIScreen.main.bounds.height * 0.2
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -114,3 +114,4 @@ extension SelectingViewController: UITableViewDataSource, UITableViewDelegate {
         self.tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+           
