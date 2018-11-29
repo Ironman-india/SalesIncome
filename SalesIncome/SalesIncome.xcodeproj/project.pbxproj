@@ -109,7 +109,7 @@
 			children = (
 				75BF54CA218739710002567A /* R.generated.swift */,
 				75BF549721872F420002567A /* SalesIncome */,
-				75BF54AD218731640002567A /* Extantion */,
+				75BF54AD218731640002567A /* Extension */,
 				75BF549621872F420002567A /* Products */,
 				A19B777780EA0F25CF9AE4CA /* Pods */,
 				62C1DCF7B09114D597F91303 /* Frameworks */,
@@ -150,7 +150,7 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		75BF54AD218731640002567A /* Extantion */ = {
+		75BF54AD218731640002567A /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				75BF54AE218731640002567A /* UIApplicationEx.swift */,
@@ -167,7 +167,7 @@
 				757C9F1E218A0F6A007A8E86 /* UITextFieldEx.swift */,
 				757C9F22218A21D9007A8E86 /* SkyFloatingEx.swift */,
 			);
-			path = Extantion;
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		75BF54C2218731960002567A /* Controller */ = {
